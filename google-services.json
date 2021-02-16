@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "921022311025",
+    "project_id": "hog-app",
+    "storage_bucket": "hog-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:921022311025:android:af2b1cb24861cb6a8a89d0",
+        "android_client_info": {
+          "package_name": "com.jardacoder.hogapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "921022311025-1gql7g8853jsh0strg3jcaj54d25hopg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBouk1--teQC6dzwrdlFGetRflvQhF5Ovc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "921022311025-1gql7g8853jsh0strg3jcaj54d25hopg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

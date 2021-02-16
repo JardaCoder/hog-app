@@ -39,7 +39,7 @@ export default function App() {
         backgroundColor:global.blue
       }}
     >
-      <ActivityIndicato size="large" color="red"/>
+      <ActivityIndicator size="large" color="red"/>
     </View>
   );
 }
