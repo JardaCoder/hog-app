@@ -2,9 +2,6 @@ import React from 'react';
 import { StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-    container: {
-      marginTop: 50,
-    },
     image:{
       flex:1,
       resizeMode: "cover",
@@ -18,15 +15,11 @@ const styles = StyleSheet.create({
       borderTopRightRadius: 40,
       borderTopLeftRadius: 40,
       alignItems: 'center',
-      // shadowColor: 'black',
-      // shadowOffset: {
-      //   width: 0,
-      //   height: 6,
-      // },
-      // shadowOpacity: 0.39,
-      // shadowRadius: 8.30,
-      // elevation: 3,
   
+    },
+    text:{
+      marginBottom: 20,
+      marginTop:'20%'
     }
 
   });

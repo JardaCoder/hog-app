@@ -1,36 +1,50 @@
 import React, {useState, useEffect} from "react";
-import { View, Text, Image, ImageBackground } from "react-native";
+import { View, Text, Image, ImageBackground, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Google from 'expo-google-app-auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 import image from '../../assets/login.jpeg';
-import style from './style'
 import styleDefault from '../../util/style'
 
 import Button from '../../components/button/button'
+import style from "./style";
+import { useNavigation } from "@react-navigation/core";
 
 export default function Login() {
 
 const [loading, setLoading] = useState(false);
+const navigation = useNavigation();
 
-const ANDROID_CLIENT_ID = "549718483476-h5sab8jhvjs5d3pu91a3i2ju6k5tk0kg.apps.googleusercontent.com"
+const config = {
+  androidClientId: "549718483476-h5sab8jhvjs5d3pu91a3i2ju6k5tk0kg.apps.googleusercontent.com",
+  scopes: ['profile', 'email'],
+  // expoClientId: `<YOUR_WEB_CLIENT_ID>`,
+  // iosClientId: `<YOUR_IOS_CLIENT_ID>`,
+  // iosStandaloneAppClientId: `<YOUR_IOS_CLIENT_ID>`,
+  // androidStandaloneAppClientId: `<YOUR_ANDROID_CLIENT_ID>`,
+};
 
 const googleLogin = async () => {
   try {
-    const result = await Google.logInAsync({
-      androidClientId: ANDROID_CLIENT_ID,
-      //iosClientId: YOUR_CLIENT_ID_HERE,
-      scopes: ['profile', 'email'],
-    });
+    setLoading(true)
+    const result = await Google.logInAsync(config);
 
     if (result.type === 'success') {
-      console.log(result)
-      return result.accessToken;
-    } else {
-      return { cancelled: true };
+      if(!result.user.email.includes('@hibrido')){
+        let accessToken = result.accessToken;
+        Alert.alert('Atenção', 'O login com esse domínio de email não está disponível');
+        await  Google.logOutAsync({accessToken, ...config})
+      }else{
+        await AsyncStorage.setItem('googleUser', JSON.stringify(result));
+        navigation.navigate('Home');
+      }
     }
   } catch (e) {
-    return { error: true };
+    console.error(e.message)
+  }finally{
+    setLoading(false);
   }
 
 }
@@ -44,8 +58,9 @@ useEffect(() =>{
     <SafeAreaView style={styleDefault.container}>
       <ImageBackground source={image} style={style.image}>
         <View style={style.containerButton}>
-            <Button text='Entrar com Google' onPress={() => console.log('login')} onPress={() => googleLogin()}
-             loading={loading} style={{margin: '20%', width:'80%'}}></Button>
+            <Text style={[styleDefault.text, style.text]}>Faça o login</Text>
+            <Button text='Google' onPress={() => googleLogin()}
+             loading={loading} style={{width:'80%'}}></Button>
         </View>
       </ImageBackground>
     </SafeAreaView>

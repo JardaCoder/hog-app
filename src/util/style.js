@@ -10,14 +10,14 @@ const stylesDefault = StyleSheet.create({
     container: {
       flex:1,
     },
-    bigBlue: {
-      color: 'blue',
-      fontWeight: 'bold',
-      fontSize: 30,
-    },
-    red: {
-      color: 'red',
-    },
+    text:{
+      fontFamily: global.fontFamily,
+      fontSize: 16,
+      color:'#000',
+      textAlign:'center',
+      justifyContent:'center',
+      width: '50%'
+    }
   });
 
  export default stylesDefault;
