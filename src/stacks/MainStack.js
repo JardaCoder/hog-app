@@ -15,7 +15,7 @@ export default function App() {
         initialRouteName="Preload"
         headerMode="none"
       >
-        <Stack.Screen name="Home" component={MainTab} />
+        <Stack.Screen name="MainTab" component={MainTab} />
         <Stack.Screen name="Preload" component={Preload} />
         <Stack.Screen name="Login" component={Login} />
       </Stack.Navigator>

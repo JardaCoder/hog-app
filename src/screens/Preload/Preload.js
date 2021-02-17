@@ -13,23 +13,24 @@ export default function App() {
       
       if(usuario && usuario.id){
         setTimeout(() => {
-          navigation.navigate('Home');
+          navigation.reset({
+            routes:[{name:'Login'}]
+          })
         }, 100);
       }else{
         setTimeout(() => {
-          navigation.navigate('Login');
+          navigation.reset({
+            routes:[{name:'Login'}]
+          })
         }, 100);
       }
       
     }
 
     useEffect(() => {
-
       verificarUsuario();
-     
     }, [])
-
-
+    
   return (
     <View
       style={{

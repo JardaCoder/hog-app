@@ -4,7 +4,7 @@ import Home from '../screens/Home/Home'
 
 const Tab = createBottomTabNavigator();
 
-export default function MyTabs() {
+export default function mainTab() {
 return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Home} />

@@ -11,6 +11,7 @@ import styleDefault from '../../util/style'
 import Button from '../../components/button/button'
 import style from "./style";
 import { useNavigation } from "@react-navigation/core";
+import mainTab from './../../stacks/MainTab';
 
 export default function Login() {
 
@@ -38,7 +39,10 @@ const googleLogin = async () => {
         await  Google.logOutAsync({accessToken, ...config})
       }else{
         await AsyncStorage.setItem('googleUser', JSON.stringify(result));
-        navigation.navigate('Home');
+        navigation.reset({
+          routes:[{name:'MainTab'}]
+        })
+  
       }
     }
   } catch (e) {
@@ -51,7 +55,6 @@ const googleLogin = async () => {
 
 
 useEffect(() =>{
-  
 },[])
 
   return (
