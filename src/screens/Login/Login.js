@@ -12,11 +12,14 @@ import Button from '../../components/button/button'
 import style from "./style";
 import { useNavigation } from "@react-navigation/core";
 import mainTab from './../../stacks/MainTab';
+import { useUserContext } from "../../contexts/UserContext";
 
 export default function Login() {
 
 const [loading, setLoading] = useState(false);
 const navigation = useNavigation();
+const [state, dispatch] = useUserContext();
+
 
 const config = {
   androidClientId: "549718483476-h5sab8jhvjs5d3pu91a3i2ju6k5tk0kg.apps.googleusercontent.com",
@@ -31,18 +34,23 @@ const googleLogin = async () => {
   try {
     setLoading(true)
     const result = await Google.logInAsync(config);
-
+    
     if (result.type === 'success') {
       if(!result.user.email.includes('@hibrido')){
         let accessToken = result.accessToken;
         Alert.alert('Atenção', 'O login com esse domínio de email não está disponível');
         await  Google.logOutAsync({accessToken, ...config})
       }else{
-        await AsyncStorage.setItem('googleUser', JSON.stringify(result));
+        await AsyncStorage.setItem('usuario', JSON.stringify(result.user));
+        dispatch({
+          type: 'setUsuario',
+          usuario: result.user
+        });
+  
         navigation.reset({
           routes:[{name:'MainTab'}]
         })
-  
+        
       }
     }
   } catch (e) {
@@ -52,10 +60,6 @@ const googleLogin = async () => {
   }
 
 }
-
-
-useEffect(() =>{
-},[])
 
   return (
     <SafeAreaView style={styleDefault.container}>
