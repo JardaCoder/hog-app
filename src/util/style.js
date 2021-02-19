@@ -2,13 +2,17 @@ import React from 'react';
 import { StyleSheet} from 'react-native';
 
 
-global.red = 'red';
-global.blue = '#16394d';
-global.lightBlue = 'aqua'
+global.red = '#F24150';
+global.blue = '#1F2F3F';
+global.white = '#F1F8FF';
+global.lightBlue = '#B0D8FF';
+global.graphite = '#353535';
+global.fontFamily = 'popins'
 
 const stylesDefault = StyleSheet.create({
     container: {
       flex:1,
+      backgroundColor: global.white
     },
     text:{
       fontFamily: global.fontFamily,
@@ -17,7 +21,22 @@ const stylesDefault = StyleSheet.create({
       textAlign:'center',
       justifyContent:'center',
       width: '50%'
-    }
+    },
+    titulo:{
+      fontSize: 22,
+      fontFamily: global.fontFamily,
+
+    },
+    tituloMaior:{
+      fontSize: 26,
+      fontFamily: global.fontFamily,
+    },
+    textoPadrao:{
+      fontSize: 16,
+      fontFamily: global.fontFamily,
+
+    },
+
   });
 
  export default stylesDefault;
