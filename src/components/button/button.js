@@ -1,6 +1,19 @@
 import React, {useState} from "react";
 import { View, Text, Image, ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
+import styled from 'styled-components/native';
+
+
+const LoginBtn = styled.TouchableOpacity`
+  width: 100%;
+  border-radius:5;
+  justify-content:center;
+  align-items:center;
+  flex-direction:row;
+  height: 60px;
+  background-color: ${global.red};
+
+`;
 
 export default function button(props) {
   return (
@@ -15,7 +28,10 @@ export default function button(props) {
   );
 }
 
+
+
 const style = StyleSheet.create({
+
     button:{
       width: '100%',
       borderRadius: 5,
