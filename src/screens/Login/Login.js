@@ -54,7 +54,7 @@ const googleLogin = async () => {
       }
     }
   } catch (e) {
-    console.error(e.message)
+    console.log(e.message)
   }finally{
     setLoading(false);
   }

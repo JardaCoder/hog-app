@@ -23,12 +23,12 @@ const stylesDefault = StyleSheet.create({
       width: '50%'
     },
     titulo:{
-      fontSize: 22,
+      fontSize: 20,
       fontFamily: global.fontFamily,
 
     },
     tituloMaior:{
-      fontSize: 26,
+      fontSize: 24,
       fontFamily: global.fontFamily,
     },
     textoPadrao:{
@@ -36,6 +36,11 @@ const stylesDefault = StyleSheet.create({
       fontFamily: global.fontFamily,
 
     },
+    textoPequenoRed:{
+      fontFamily:global.fontFamily,
+      fontSize:10,
+      color:global.red
+    }
 
   });
 

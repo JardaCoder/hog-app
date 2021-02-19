@@ -18,13 +18,14 @@ const styles = StyleSheet.create({
         alignItems:'center',
     },
     image:{
-        width: 100,
-        height:110,
+        width: 85,
+        height:95,
         borderRadius: 5
     },
     conteudoHeader:{
         marginHorizontal:15, 
         height:'100%',
+        maxHeight:90,
         justifyContent:'space-between',
         flexDirection:'column',
     },
@@ -34,6 +35,13 @@ const styles = StyleSheet.create({
         marginTop:20,
         borderRadius: 5,
         backgroundColor:global.blue
+    },
+
+    navegarParaRank:{
+        justifyContent:'flex-end',
+        alignItems:'flex-end',
+        alignSelf:'flex-end',
+        marginTop: 10,
     },
     containerButton:{
       height:'40%',
