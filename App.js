@@ -7,7 +7,8 @@ import { UsuarioProvider } from './src/contexts/UserContext';
 
 export default function App() {
   const [loaded] = useFonts({
-    popins: require('./src/assets/fonts/Poppins-Medium.ttf')
+    popins: require('./src/assets/fonts/Poppins-Medium.ttf'),
+    bold: require('./src/assets/fonts/Poppins-Bold.ttf'),
   });
 
 
