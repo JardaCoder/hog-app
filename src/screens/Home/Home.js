@@ -13,6 +13,10 @@ export default function App() {
     //TODO
   }
 
+  const buscarOverview =  () =>{
+    //TODO
+  }
+
   return (
     <SafeAreaView style={[stylesDefault.container]}>
       <View style={style.container}>
