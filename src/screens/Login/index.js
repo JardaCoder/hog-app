@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import image from '../../assets/login.jpeg';
 import styleDefault from '../../util/style'
 
-import Button from '../../components/button/button'
+import Button from '../../components/Button/button'
 import style from "./style";
 import { useNavigation } from "@react-navigation/core";
 import mainTab from './../../stacks/MainTab';

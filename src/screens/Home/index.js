@@ -5,7 +5,7 @@ import { useUserContext } from "../../contexts/UserContext";
 import stylesDefault from './../../util/style';
 import style from './style';
 
-export default function App() {
+export default function Home() {
 
   const [userState, dispatch] = useUserContext();
 

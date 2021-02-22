@@ -8,6 +8,7 @@ global.white = '#F1F8FF';
 global.lightBlue = '#B0D8FF';
 global.graphite = '#353535';
 global.fontFamily = 'popins'
+global.bold = 'bold'
 
 const stylesDefault = StyleSheet.create({
     container: {
@@ -36,11 +37,39 @@ const stylesDefault = StyleSheet.create({
       fontFamily: global.fontFamily,
 
     },
+    textoPadraoBold:{
+      fontSize: 16,
+      fontFamily: global.bold,
+
+    },
     textoPequenoRed:{
       fontFamily:global.fontFamily,
       fontSize:10,
       color:global.red
+    },
+    tituloHeader:{
+      fontFamily:global.fontFamily,
+      fontSize:30
+    },
+    header:{
+      width: '100%',
+      height: '20%',
+      justifyContent:'center', 
+      alignItems:'center',
+      flexDirection: 'row',
+      backgroundColor: 'white'
+    },
+    boxShadow: {
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 4,
+      },
+      shadowOpacity: 0.30,
+      shadowRadius: 4.65,
+      elevation: 5,
     }
+
 
   });
 
