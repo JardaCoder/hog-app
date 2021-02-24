@@ -47,18 +47,6 @@ const stylesDefault = StyleSheet.create({
       fontSize:10,
       color:global.red
     },
-    tituloHeader:{
-      fontFamily:global.fontFamily,
-      fontSize:30
-    },
-    header:{
-      width: '100%',
-      height: '20%',
-      justifyContent:'center', 
-      alignItems:'center',
-      flexDirection: 'row',
-      backgroundColor: 'white'
-    },
     boxShadow: {
       shadowColor: "#000",
       shadowOffset: {

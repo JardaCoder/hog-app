@@ -5,6 +5,8 @@ import { useUserContext } from "../../contexts/UserContext";
 import stylesDefault from '../../util/style';
 import style from './style';
 import Header from './../../components/Header/header';
+import CardPosicao from './../../components/CardPosicao/index';
+import CardInformativo from './../../components/CardInformativo/index';
 
 export default function Perfil() {
 
@@ -20,35 +22,24 @@ export default function Perfil() {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={style.container}>
           <View style={style.header}>
-            <Image style={style.image} source={{uri: userState.photoUrl}}></Image>
-            <Text style={stylesDefault.titulo}>{userState.name}</Text>
+            <Image style={style.image} source={{uri: userState.fotoUrl}}></Image>
+            <Text style={stylesDefault.titulo}>{userState.nome}</Text>
           </View>
           <Text style={[stylesDefault.tituloMaior, style.titulo]}>Pontuação</Text>
+          <CardPosicao cor={global.red}/>
+          <CardPosicao cor={global.blue}/>
 
-          <View style={[style.cardRanking, stylesDefault.boxShadow, {backgroundColor:global.red}]}>
-          </View>
-          <View style={[style.cardRanking, stylesDefault.boxShadow]}>
-          </View>
           <View style={style.navegarParaRank}>
-          <TouchableOpacity  onPress={() => navegarParaRank()}>
-            <Text style={stylesDefault.textoPequenoRed}> + ver rank completo</Text>
-          </TouchableOpacity>  
-        </View>
+            <TouchableOpacity  onPress={() => navegarParaRank()}>
+              <Text style={stylesDefault.textoPequenoRed}> + ver rank completo</Text>
+            </TouchableOpacity>  
+          </View>
           
           <Text style={[stylesDefault.tituloMaior, style.titulo]}>Atalhos:</Text>
           <ScrollView horizontal={true} style={{width:'100%', flexDirection: 'row'}}>
-            <View style={[stylesDefault.boxShadow,
-              {width:100, height:120, backgroundColor:'white', borderRadius:5, marginHorizontal:4}]}>
-            </View>
-            <View style={[stylesDefault.boxShadow,
-              {width:100, height:120, backgroundColor:'white', borderRadius:5, marginHorizontal:4}]}>
-            </View>
-            <View style={[stylesDefault.boxShadow,
-              {width:100, height:120, backgroundColor:'white', borderRadius:5, marginHorizontal:4}]}>
-            </View>
-            <View style={[stylesDefault.boxShadow,
-              {width:100, height:120, backgroundColor:'white', borderRadius:5, marginHorizontal:4}]}>
-            </View>
+            <CardInformativo titulo="Minhas postagens"/>
+            <CardInformativo titulo= "indicações"/>
+            <CardInformativo titulo= "Teckwiki"/>
           </ScrollView>
           <View style={style.navegarParaRank}>
             <TouchableOpacity  onPress={() => navegarParaRank()}>

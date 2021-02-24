@@ -4,15 +4,65 @@ import {FontAwesome5, Ionicons, MaterialIcons   } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
 import { useUserContext } from '../../contexts/UserContext';
 
+export default function CustomTabBar({state}){
 
+    const navigation = useNavigation();
+    const [itemWidth, setstate] = useState(0)
+    const [userState, dispatch] = useUserContext();
 
-{/* <Ionicons name="home-outline" size={24} color="white" />
-<MaterialIcons name="dynamic-feed" size={24} color="white" />
- <Ionicons name="add-outline" size={24} color="white" />
- <Ionicons name="notifications-outline" size={24} color="white" />
- <FontAwesome5 name="user" size={24} color="white" /> */}
+    const navigateTo = (screen) =>{
+        navigation.navigate(screen);
+    }
+    
+    const onLayout = (event ) =>{
+        var {x, y, width, height} = event.nativeEvent.layout;
+        setstate(width)
+    }
 
+    return(
+        <View style={style.tabArea}>
+            <TouchableOpacity style={[style.tabItem]} onPress={() => navigateTo('Home')}>
+                <Ionicons style={{opacity: state.index == 0 ? 1 : 0.7}} name="home-outline" size={24} color="white" />
+                {state.index == 0 &&(
+                     <Text style={style.label}>Home</Text>
+                )}
+            </TouchableOpacity>
+            
+            <TouchableOpacity style={style.tabItem} onPress={() => navigateTo('Post')}>
+                <MaterialIcons style={{opacity: state.index == 1 ? 1 : 0.7}} name="dynamic-feed" size={24} color="white" />
+                {state.index == 1 &&(
+                     <Text style={style.label}>Posts</Text>
+                )}
+            </TouchableOpacity>
 
+            <TouchableOpacity style={[style.tabItemCenter]} onPress={() =>navigateTo('NovoPost')}>
+                <Ionicons style={{opacity: state.index == 2 ? 1 : 0.7}} name="add-outline" size={40} color="white" />
+            </TouchableOpacity>
+
+            <TouchableOpacity onLayout={(event) => {onLayout(event)}} style={[style.tabItem]} onPress={() =>navigateTo('Notificacao')}>
+                <View style={[style.badge,
+                     {right: itemWidth ? (itemWidth / 100) * 27 : 0, top: state.index == 3 ? 10 : 16 }]}>
+                         <Text style={style.label}>0</Text>
+                </View>
+                <Ionicons style={{opacity: state.index == 3 ? 1 : 0.7}} name="notifications-outline" size={24} color="white" />
+                {state.index == 3 &&(
+                     <Text style={style.label}>Notificações</Text>
+                )}
+            </TouchableOpacity>
+
+            <TouchableOpacity style={style.tabItem} onPress={() =>navigateTo('Perfil')}>
+                {userState.fotoUrl ? 
+                    <Image style={style.image} source={{uri: userState.fotoUrl}}></Image>
+                :
+                    <FontAwesome5 style={{opacity: state.index == 4 ? 1 : 0.7}} name="user" size={24} color="white" />
+                }
+                {state.index == 4 &&(
+                     <Text style={style.label}>Perfil</Text>
+                )}
+            </TouchableOpacity>
+        </View>
+    );
+}
 
 const style = StyleSheet.create({
 
@@ -70,62 +120,3 @@ const style = StyleSheet.create({
 
 
   });
-
-
-export default function CustomTabBar({state}){
-
-    const navigation = useNavigation();
-    const [itemWidth, setstate] = useState(0)
-    const [userState, dispatch] = useUserContext();
-
-    const navigateTo = (screen) =>{
-        navigation.navigate(screen);
-    }
-    
-    const onLayout = (event ) =>{
-        var {x, y, width, height} = event.nativeEvent.layout;
-        setstate(width)
-    }
-
-    return(
-        <View style={style.tabArea}>
-            <TouchableOpacity style={[style.tabItem]} onPress={() => navigateTo('Home')}>
-                <Ionicons style={{opacity: state.index == 0 ? 1 : 0.7}} name="home-outline" size={24} color="white" />
-                {state.index == 0 &&(
-                     <Text style={style.label}>Home</Text>
-                )}
-            </TouchableOpacity>
-            <TouchableOpacity style={style.tabItem} onPress={() => navigateTo('Post')}>
-                <MaterialIcons style={{opacity: state.index == 1 ? 1 : 0.7}} name="dynamic-feed" size={24} color="white" />
-                {state.index == 1 &&(
-                     <Text style={style.label}>Posts</Text>
-                )}
-            </TouchableOpacity>
-
-            <TouchableOpacity style={[style.tabItemCenter]} onPress={() =>navigateTo('NovoPost')}>
-                <Ionicons style={{opacity: state.index == 2 ? 1 : 0.7}} name="add-outline" size={40} color="white" />
-            </TouchableOpacity>
-
-            <TouchableOpacity onLayout={(event) => {onLayout(event)}} style={[style.tabItem]} onPress={() =>navigateTo('Notificacao')}>
-                <View style={[style.badge,
-                     {right: itemWidth ? (itemWidth / 100) * 27 : 0, top: state.index == 3 ? 10 : 16 }]}>
-                         <Text style={style.label}>0</Text>
-                </View>
-                <Ionicons style={{opacity: state.index == 3 ? 1 : 0.7}} name="notifications-outline" size={24} color="white" />
-                {state.index == 3 &&(
-                     <Text style={style.label}>Notificações</Text>
-                )}
-            </TouchableOpacity>
-            <TouchableOpacity style={style.tabItem} onPress={() =>navigateTo('Perfil')}>
-                {userState.photoUrl ? 
-                    <Image style={style.image} source={{uri: userState.photoUrl}}></Image>
-                :
-                    <FontAwesome5 style={{opacity: state.index == 4 ? 1 : 0.7}} name="user" size={24} color="white" />
-                }
-                {state.index == 4 &&(
-                     <Text style={style.label}>Perfil</Text>
-                )}
-            </TouchableOpacity>
-        </View>
-    );
-}

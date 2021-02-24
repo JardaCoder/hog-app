@@ -8,8 +8,8 @@ import stylesDefault from "../../util/style";
 
 export default function Header(props) {
   return (
-    <View style={stylesDefault.header}>
-      <Text style={stylesDefault.tituloHeader}>{props.titulo}</Text>
+    <View style={style.header}>
+      <Text style={style.tituloHeader}>{props.titulo}</Text>
     </View>
   );
 }
@@ -17,6 +17,20 @@ export default function Header(props) {
 
 
 const style = StyleSheet.create({
+
+  header:{
+    width: '100%',
+    height: '17%',
+    justifyContent:'center', 
+    alignItems:'center',
+    flexDirection: 'row',
+    backgroundColor: 'white'
+  },
+
+  tituloHeader:{
+    fontFamily:global.fontFamily,
+    fontSize:30
+  },
 
     button:{
       width: '100%',
