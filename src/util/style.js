@@ -13,7 +13,8 @@ global.bold = 'bold'
 const stylesDefault = StyleSheet.create({
     container: {
       flex:1,
-      backgroundColor: global.white
+      backgroundColor: global.white,
+      
     },
     text:{
       fontFamily: global.fontFamily,

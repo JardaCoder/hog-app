@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const styles = StyleSheet.create({
     image:{
@@ -16,6 +16,12 @@ const styles = StyleSheet.create({
       borderTopLeftRadius: 40,
       alignItems: 'center',
   
+    },
+    icone:{
+      width:40,
+      height:50,
+      position:'absolute',
+      top:Dimensions.get('screen').height / 3
     },
     text:{
       marginBottom: 20,

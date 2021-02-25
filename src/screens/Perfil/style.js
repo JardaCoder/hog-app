@@ -41,6 +41,10 @@ const styles = StyleSheet.create({
         marginTop:20,
         textAlign:'left',
         width:'100%'
+    },
+    scrollAtalhos:{
+        width: '100%',
+        flexDirection: 'row'
     }
   });
 

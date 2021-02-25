@@ -11,6 +11,7 @@
     "expo-font": "~8.4.0",
     "expo-google-app-auth": "^8.1.4",
     "expo-google-sign-in": "~8.4.0",
+    "expo-linking": "~2.0.1",
     "expo-notifications": "~0.8.2",
     "expo-permissions": "~10.0.0",
     "react": "16.13.1",

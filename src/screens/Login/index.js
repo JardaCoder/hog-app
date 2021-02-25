@@ -6,7 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Permissions from 'expo-permissions';
 
 
-import image from '../../assets/login.jpeg';
+import image from '../../assets/login.png';
+import iconeHibrido from '../../assets/hibriBranco.png';
 import styleDefault from '../../util/style'
 
 import Button from '../../components/Button/button'
@@ -22,6 +23,9 @@ export default function Login() {
 const [loading, setLoading] = useState(false);
 const navigation = useNavigation();
 const [buscarOuCriarUsuario] = useUsuario();
+var expoToken = null;
+
+
 
 
 
@@ -47,7 +51,6 @@ const googleLogin = async () => {
       }else{
       try {
         await buscarOuCriarUsuario(result.user);
-        pedirPermissoes();
         navigation.reset({
           routes:[{name:'MainTab'}]
         })
@@ -69,10 +72,14 @@ const pedirPermissoes = () => {
   Permissions.askAsync(Permissions.MEDIA_LIBRARY, Permissions.NOTIFICATIONS);
 }
 
+useEffect(() => {
+  pedirPermissoes();
+}, [])
 
   return (
     <SafeAreaView style={styleDefault.container}>
       <ImageBackground source={image} style={style.image}>
+        <Image style={style.icone} source={iconeHibrido}/>
         <View style={style.containerButton}>
             <Text style={[styleDefault.text, style.text]}>Faça o login</Text>
             <Button text='Google' onPress={() => googleLogin()}

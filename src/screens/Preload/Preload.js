@@ -11,10 +11,8 @@ export default function App() {
     const [state, dispatch] = useUserContext();
     
 
-
-
     const verificarUsuario = async () => {
-      //await AsyncStorage.clear();
+      await AsyncStorage.clear();
      
       let usuario = JSON.parse(await AsyncStorage.getItem('usuario'));
       if(usuario && usuario.id){

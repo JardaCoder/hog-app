@@ -36,6 +36,15 @@ const styles = StyleSheet.create({
         marginTop: 10,
         height:20
     },
+    titulo:{
+        marginTop:20,
+        textAlign:'left',
+        width:'100%'
+    },
+    scrollAtalhos:{
+        width: '100%',
+        flexDirection: 'row'
+    }
 
   });
 

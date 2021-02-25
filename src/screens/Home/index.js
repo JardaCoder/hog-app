@@ -1,17 +1,21 @@
 import React, {useEffect} from "react";
-import { View, Text, Image, SafeAreaView } from "react-native";
+import { View, Text, Image, SafeAreaView, ScrollView} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useUserContext } from "../../contexts/UserContext";
 import stylesDefault from './../../util/style';
 import style from './style';
 import CardPosicao from '../../components/CardPosicao/index'
+import CardInformativo from "../../components/CardInformativo";
+import { useNavigation } from "@react-navigation/core";
+
 
 export default function Home() {
 
   const [userState, dispatch] = useUserContext();
+  const navigation = useNavigation();
 
   const navegarParaRank =  () =>{
-    //TODO
+    navigation.push('Ranking')
   }
 
   return (
@@ -33,6 +37,13 @@ export default function Home() {
             <Text style={stylesDefault.textoPequenoRed}> + ver rank completo</Text>
           </TouchableOpacity>  
         </View>
+        <Text style={[stylesDefault.tituloMaior, style.titulo]}>Categorias:</Text>
+        <ScrollView horizontal={true} style={style.scrollAtalhos}>
+            <CardInformativo color={global.red} titulo="Recados"/>
+            <CardInformativo color={global.blue} titulo= "Projetos"/>
+            <CardInformativo color={global.blue} titulo= "Indicações"/>
+            <CardInformativo color={global.blue} titulo= "Vagas"/>
+        </ScrollView>
 
       </View>
     </SafeAreaView>
