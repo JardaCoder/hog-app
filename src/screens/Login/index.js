@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { View, Text, Image, ImageBackground, Alert } from "react-native";
+import { View, Text, Image, ImageBackground, Alert, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Google from 'expo-google-app-auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -17,14 +17,15 @@ import mainTab from './../../stacks/MainTab';
 import { useUserContext } from "../../contexts/UserContext";
 import api from '../../services/api'
 import useUsuario from "../../hooks/useUsuario";
+import useNotificacao from "../../hooks/useNotificacao";
 
 export default function Login() {
 
 const [loading, setLoading] = useState(false);
 const navigation = useNavigation();
 const [buscarOuCriarUsuario] = useUsuario();
-var expoToken = null;
-
+const [getExpoToken, buscarNotificacoes, setListeners] = useNotificacao();
+var expoPushToken = null;
 
 
 
@@ -50,7 +51,9 @@ const googleLogin = async () => {
         await Google.logOutAsync({accessToken, ...config})
       }else{
       try {
-        await buscarOuCriarUsuario(result.user);
+      let usuario =  await buscarOuCriarUsuario(result.user, expoPushToken );
+        buscarNotificacoes(usuario.id);
+        setListeners(usuario.id);
         navigation.reset({
           routes:[{name:'MainTab'}]
         })
@@ -68,8 +71,9 @@ const googleLogin = async () => {
   }
 }
 
-const pedirPermissoes = () => {
+const pedirPermissoes = async () => {
   Permissions.askAsync(Permissions.MEDIA_LIBRARY, Permissions.NOTIFICATIONS);
+  expoPushToken = await getExpoToken();
 }
 
 useEffect(() => {
@@ -78,14 +82,14 @@ useEffect(() => {
 
   return (
     <SafeAreaView style={styleDefault.container}>
-      <ImageBackground source={image} style={style.image}>
-        <Image style={style.icone} source={iconeHibrido}/>
-        <View style={style.containerButton}>
-            <Text style={[styleDefault.text, style.text]}>Faça o login</Text>
-            <Button text='Google' onPress={() => googleLogin()}
-             loading={loading} style={{width:'80%'}}></Button>
-        </View>
-      </ImageBackground>
+        <ImageBackground source={image} style={style.image}>
+          <Image style={style.icone} source={iconeHibrido}/>
+          <View style={style.containerButton}>
+              <Text style={[styleDefault.text, style.text]}>Faça o login</Text>
+              <Button text='Google' onPress={() => googleLogin()}
+              loading={loading} style={{width:'80%'}}></Button>
+          </View>
+        </ImageBackground>
     </SafeAreaView>
   );
 }

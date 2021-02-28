@@ -1,22 +1,29 @@
 import React, {useEffect, useState} from "react";
-import { View, Text, Image, SafeAreaView, FlatList, TouchableOpacity, StyleSheet, StatusBar } from "react-native";
+import { View, Text, Image, SafeAreaView, FlatList, TouchableOpacity, StyleSheet, StatusBar, TouchableHighlight, ActivityIndicator } from "react-native";
 import { useUserContext } from "../../contexts/UserContext";
 import stylesDefault from '../../util/style';
 import Header from '../../components/Header/header'
 import Loading from '../../components/Loading/index'
 import style from './style'
+import { useNotificationContext } from "../../contexts/NotificationContext";
+import useNotificacao from './../../hooks/useNotificacao';
 
 export default function Notificacao(props) {
 
-  const [userState, dispatch] = useUserContext();
+  const [notificationState, dispatch] = useNotificationContext();
   const [loading, setLoading] = useState(true);
+  const [getExpoToken, buscarNotificacoes] = useNotificacao();
+  const [paginacao, setPaginacao] = useState({
+    page: 0,
+    loading: false
+  })
 
   const navegarPara = (notificacao) =>{
     //TODO
   }
 
-  const buscarNotificacoes = async () =>{
-    //TODO
+  const buscarDados = async () =>{
+    await buscarNotificacoes(page)
   }
 
 
@@ -24,52 +31,12 @@ export default function Notificacao(props) {
   setTimeout(() => {
     setLoading(false);
   }, 1000);
-  const DATA = [
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-
-    
-  ];
 
   const Item = ({ item, onPress}) => (
     <TouchableOpacity onPress={onPress} style={[style.item, stylesDefault.boxShadow, style]}>
        <View style={style.containerTexto}>
           <Text style={stylesDefault.textoPadraoBold}>{item.titulo}</Text>
-          <Text style={stylesDefault.textoPadrao}>{item.mensagem}</Text>
+          <Text style={stylesDefault.textoPadrao}>{item.corpo}</Text>
        </View>
       
     </TouchableOpacity>
@@ -92,10 +59,19 @@ export default function Notificacao(props) {
       <FlatList
         style={style.lista}
         showsVerticalScrollIndicator={false}
-        data={DATA}
+        data={notificationState.notificacoes}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
-        
+        // onEndReached={() => alert('Oi')}
+        // onEndReachedThreshold={0.1}
+        onRefresh={buscarNotificacoes}
+        refreshing={false}
+        ListFooterComponent={() =>(
+          paginacao.loading ? 
+            <ActivityIndicator size="large" color={global.red}></ActivityIndicator>
+            : null
+        )}
+        ListFooterComponentStyle={{height:20, marginTop:10}}
       />
       </View>
     </SafeAreaView>

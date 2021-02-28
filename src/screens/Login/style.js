@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     },
     text:{
       marginBottom: 20,
-      marginTop:'20%'
+      marginTop:'10%'
     }
 
   });

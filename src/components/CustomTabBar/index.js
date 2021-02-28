@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { StyleSheet, View, Dimensions, Text, TouchableOpacity, Image} from 'react-native';
 import {FontAwesome5, Ionicons, MaterialIcons   } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
 import { useUserContext } from '../../contexts/UserContext';
+import { useNotificationContext } from '../../contexts/NotificationContext';
 
 export default function CustomTabBar({state}){
 
     const navigation = useNavigation();
     const [itemWidth, setstate] = useState(0)
     const [userState, dispatch] = useUserContext();
-
+    const [notificationState, dispatchNotification] = useNotificationContext();
     const navigateTo = (screen) =>{
         navigation.navigate(screen);
     }
@@ -42,7 +43,7 @@ export default function CustomTabBar({state}){
             <TouchableOpacity onLayout={(event) => {onLayout(event)}} style={[style.tabItem]} onPress={() =>navigateTo('Notificacao')}>
                 <View style={[style.badge,
                      {right: itemWidth ? (itemWidth / 100) * 27 : 0, top: state.index == 3 ? 10 : 16 }]}>
-                         <Text style={style.label}>0</Text>
+                         <Text style={style.label}>{notificationState.quantidade || 0}</Text>
                 </View>
                 <Ionicons style={{opacity: state.index == 3 ? 1 : 0.7}} name="notifications-outline" size={24} color="white" />
                 {state.index == 3 &&(

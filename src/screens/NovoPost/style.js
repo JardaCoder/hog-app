@@ -12,15 +12,49 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     container:{
-        marginTop:'15%',
+        marginTop:'10%',
         marginHorizontal:15,
         justifyContent: 'flex-start',
         alignItems:'center',
     },
+    containerImagem:{
+        width:'100%',
+        height:200,
+        borderRadius:5,
+        backgroundColor:global.blue,
+        justifyContent: 'flex-start',
+        alignItems:'center',
+    },
+    circuloImagem:{
+        width:100,
+        height:100,
+        marginTop:20,
+        borderRadius:55,
+        backgroundColor:'#fff',
+        justifyContent:'center',
+        alignItems:'center',
+
+    },
+    adicionarImagem:{
+        justifyContent: 'flex-start',
+        alignItems:'center',
+    },
     image:{
-        width: 85,
-        height:95,
-        borderRadius: 5
+        width:'100%',
+        height:'100%',
+        borderRadius: 5,
+        justifyContent:'flex-end',
+        alignItems:'flex-end'
+    },
+    apagarImagem:{
+        width:40,
+        height:40,
+        borderRadius: 55,
+        backgroundColor:'#fff',
+        justifyContent: 'center',
+        alignItems:'center',
+        margin:5,
+        opacity:0.7
     },
     conteudoHeader:{
         marginHorizontal:15, 

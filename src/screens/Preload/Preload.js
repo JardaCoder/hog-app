@@ -4,23 +4,35 @@ import { View, Text, ActivityIndicator, Image } from "react-native";
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useUserContext } from "../../contexts/UserContext";
+import { useRef } from "react/cjs/react.development";
+import * as Notifications from 'expo-notifications';
+import useNotificacao from './../../hooks/useNotificacao';
 
 export default function App() {
 
     const navigation = useNavigation();
-    const [state, dispatch] = useUserContext();
-    
+    const [userState, dispatch] = useUserContext();
+    const [getExpoToken, buscarNotificacoes, setListeners] = useNotificacao();
+
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: false,
+        shouldSetBadge: false,
+      }),
+    })
 
     const verificarUsuario = async () => {
-      await AsyncStorage.clear();
-     
+     // await AsyncStorage.clear();
       let usuario = JSON.parse(await AsyncStorage.getItem('usuario'));
       if(usuario && usuario.id){
         dispatch({
           type: 'setUsuario',
           usuario: usuario
         });
-      
+        buscarNotificacoes(usuario.id);
+        setListeners(usuario.id);
+
         navigation.reset({
           routes:[{name:'MainTab'}]
         })
@@ -34,7 +46,6 @@ export default function App() {
     }
 
     useEffect(() => {
-      
       verificarUsuario();
     }, [])
     
