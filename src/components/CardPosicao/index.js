@@ -6,15 +6,19 @@ import stylesDefault from "../../util/style";
 
 
 export default function cardPosicao(props) {
+
+  const posicao = props.posicao ? props.posicao : props.index + 1;
   return (
     <View style={[style.cardRanking, {backgroundColor:props.cor}]}>
       <View style={style.grupoTexto}>
-        <Text style={[stylesDefault.textoPadrao, {color:'white'}]}>19º</Text>
-        <Text style={[stylesDefault.textoPadrao, style.grupoTextoSegundoItem]}>Jardel Schaefer</Text>
+
+        <Text style={[stylesDefault.textoPadrao, {color:'white'}]}>{posicao}º</Text>
+        
+        <Text style={[stylesDefault.textoPadrao, style.grupoTextoSegundoItem]}>{props.usuario.nome} {props.texto}</Text>
       </View>
       <View style={style.grupoTexto}>
         <FontAwesome style={{marginBottom:7}} name="angle-up" size={24} color="white" />
-        <Text style={[stylesDefault.textoPadrao, style.grupoTextoSegundoItem]}>320</Text>
+        <Text style={[stylesDefault.textoPadrao, style.grupoTextoSegundoItem]}>{props.usuario.pontosSplit}</Text>
       </View>
     </View>
   );

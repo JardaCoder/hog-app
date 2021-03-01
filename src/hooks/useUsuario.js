@@ -17,12 +17,13 @@ function UsuarioException(message) {
     this.name = "UsuarioException";
 }
 
-const buscarOuCriarUsuario = async (googleUser) =>{
+const buscarOuCriarUsuario = async (googleUser, expoPushToken) =>{
     let usuario ={
         nome: googleUser.name,
         email: googleUser.email,
         fotoUrl: googleUser.photoUrl,
-        tipoUsuario: 'COLAB'
+        tipoUsuario: 'COLAB',
+        expoPushToken: expoPushToken
     }
 
    await api.post('/api/usuario/criar', usuario).then((response) => {
@@ -31,10 +32,13 @@ const buscarOuCriarUsuario = async (googleUser) =>{
             type: 'setUsuario',
             usuario: response.data
         });
+        usuario = response.data;
 
     }).catch((error) => {
         throw new UsuarioException('Problema ao criar ou buscar usuário')
     })
+
+    return usuario;
   
 }
 
@@ -52,8 +56,21 @@ const salvarAlteracoesUsuario = async (usuario) => {
     })
 }
 
+const buscarDadosHome = async (id) => {
+    let home = {};
 
-   return[buscarOuCriarUsuario, salvarAlteracoesUsuario]
+    await api.get('/api/usuario/home?usuarioId=' + id).then((response) => {
+        home = response.data;
+    }).catch((error) => {
+        console.log(error)
+        throw new UsuarioException('Problema ao buscar Usuarios')
+    })
+
+    return home;
+}
+
+
+   return[buscarOuCriarUsuario, salvarAlteracoesUsuario, buscarDadosHome]
 }
 
 export default useUsuario;

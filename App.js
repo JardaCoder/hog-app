@@ -4,6 +4,7 @@ import MainStack from './src/stacks/MainStack'
 import { useFonts } from 'expo-font';
 
 import { UsuarioProvider } from './src/contexts/UserContext';
+import { NotificacaoProvider } from './src/contexts/NotificationContext';
 
 export default function App() {
   const [loaded] = useFonts({
@@ -14,7 +15,9 @@ export default function App() {
 
   return loaded ?
     <UsuarioProvider>
-      <MainStack/>
+      <NotificacaoProvider>
+        <MainStack/>
+      </NotificacaoProvider>
     </UsuarioProvider>
   :
     null;

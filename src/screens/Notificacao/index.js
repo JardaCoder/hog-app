@@ -1,75 +1,38 @@
 import React, {useEffect, useState} from "react";
-import { View, Text, Image, SafeAreaView, FlatList, TouchableOpacity, StyleSheet, StatusBar } from "react-native";
-import { useUserContext } from "../../contexts/UserContext";
+import { View, Text, Image, SafeAreaView, FlatList, TouchableOpacity, StyleSheet, StatusBar, TouchableHighlight, ActivityIndicator } from "react-native";
 import stylesDefault from '../../util/style';
 import Header from '../../components/Header/header'
 import Loading from '../../components/Loading/index'
 import style from './style'
+import { useNotificationContext } from "../../contexts/NotificationContext";
+import { useUserContext } from "../../contexts/UserContext";
+import useNotificacao from './../../hooks/useNotificacao';
+import { useNavigation } from '@react-navigation/core';
 
-export default function Notificacao(props) {
+export default function Notificacao( ) {
 
-  const [userState, dispatch] = useUserContext();
+  const [notificationState, dispatch] = useNotificationContext();
+  const [userState, dispatchUser] = useUserContext();
   const [loading, setLoading] = useState(true);
+  const [getExpoToken, buscarNotificacoes, setListeners, visualizarTodas] = useNotificacao();
+  const navigation = useNavigation();
 
-  const navegarPara = (notificacao) =>{
-    //TODO
+  navigation.addListener("blur", async () => updateNotificacoes())
+  
+  const updateNotificacoes = async () => {
+    await visualizarTodas(userState.id);
+    await buscarNotificacoes(userState.id);
   }
-
-  const buscarNotificacoes = async () =>{
-    //TODO
-  }
-
-
 
   setTimeout(() => {
     setLoading(false);
   }, 1000);
-  const DATA = [
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-
-    
-  ];
 
   const Item = ({ item, onPress}) => (
-    <TouchableOpacity onPress={onPress} style={[style.item, stylesDefault.boxShadow, style]}>
-       <View style={style.containerTexto}>
+    <TouchableOpacity onPress={onPress} style={[style.item, stylesDefault.boxShadow,  ]}>
+       <View style={[style.containerTexto]}>
           <Text style={stylesDefault.textoPadraoBold}>{item.titulo}</Text>
-          <Text style={stylesDefault.textoPadrao}>{item.mensagem}</Text>
+          <Text style={stylesDefault.textoPadrao}>{item.corpo}</Text>
        </View>
       
     </TouchableOpacity>
@@ -92,10 +55,19 @@ export default function Notificacao(props) {
       <FlatList
         style={style.lista}
         showsVerticalScrollIndicator={false}
-        data={DATA}
+        data={notificationState.notificacoes}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
-        
+        // onEndReached={() => alert('Oi')}
+        // onEndReachedThreshold={0.1}
+        onRefresh={buscarNotificacoes}
+        refreshing={false}
+        ListFooterComponent={() =>(
+          loading ? 
+            <ActivityIndicator size="large" color={global.red}></ActivityIndicator>
+            : null
+        )}
+        ListFooterComponentStyle={{height:20, marginTop:10}}
       />
       </View>
     </SafeAreaView>
