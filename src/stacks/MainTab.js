@@ -12,7 +12,11 @@ const Tab = createBottomTabNavigator();
 export default function mainTab() {
 
 return (
-    <Tab.Navigator initialRouteName="Home" tabBar={props => <CustomTabBar {...props}/>}>
+    <Tab.Navigator initialRouteName="Home" tabBar={props => <CustomTabBar {...props}/>}
+      tabBarOptions={{
+        keyboardHidesTabBar:true
+      }}
+    >
       <Tab.Screen name="Home" component={HomeStack}
       />
       <Tab.Screen name="Post" component={Post}

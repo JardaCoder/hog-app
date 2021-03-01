@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState, useCallback} from "react";
 import { View, Text, Image, SafeAreaView, ScrollView} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useUserContext } from "../../contexts/UserContext";
@@ -7,16 +7,36 @@ import style from './style';
 import CardPosicao from '../../components/CardPosicao/index'
 import CardInformativo from "../../components/CardInformativo";
 import { useNavigation } from "@react-navigation/core";
+import useUsuario from './../../hooks/useUsuario';
+import { useFocusEffect } from '@react-navigation/native';
 
 
 export default function Home() {
 
   const [userState, dispatch] = useUserContext();
   const navigation = useNavigation();
+  const [buscarOuCriarUsuario, salvarAlteracoesUsuario, buscarDadosHome] = useUsuario();
+  const [ranking, setRanking] = useState([]);
+  const [home, setHome] = useState({
+    voce:{}
+  })
+
+
+  const buscarDados = async () => {
+    let home = await buscarDadosHome(userState.id);
+    setHome(home);
+    setRanking(home.topUsuarios);
+  }
 
   const navegarParaRank =  () =>{
     navigation.push('Ranking')
   }
+
+
+  useFocusEffect(useCallback(() => {
+      buscarDados();
+  },[]))
+
 
   return (
     <SafeAreaView style={[stylesDefault.container]}>
@@ -24,14 +44,22 @@ export default function Home() {
         <View style={style.header}>
             <Image style={style.image} source={{uri: userState.fotoUrl}}></Image>
             <View style={style.conteudoHeader}>
-              <Text style={stylesDefault.titulo}>Oi, Jardel</Text>
+              <Text style={stylesDefault.titulo}>Oi, {userState.nome}</Text>
               <Text style={stylesDefault.tituloMaior}>Tudo bem?</Text>
-              <Text style={stylesDefault.textoPadrao}>Pontuação atual:</Text>
+              <Text style={stylesDefault.textoPadrao}>Pontuação atual: {home.voce.pontosSplit}</Text>
             </View>
         </View>
-          <CardPosicao cor={global.red}/>
-          <CardPosicao cor={global.blue}/>
-          
+          {home.voce &&(
+              <CardPosicao cor={global.red} usuario={home.voce} posicao={home.voce.posicao} texto={'(Você)'}/>
+          )}
+          {
+            ranking.map((item, index) =>{
+              return(
+                <CardPosicao cor={global.blue} usuario={item} index={index} 
+                  texto={item.id == home.voce.id ? '(Você)' : ""}/>
+              )
+            })
+          }  
         <View style={style.navegarParaRank}>
           <TouchableOpacity  onPress={() => navegarParaRank()}>
             <Text style={stylesDefault.textoPequenoRed}> + ver rank completo</Text>

@@ -23,7 +23,13 @@
     "android": {
       "package": "com.jardacoder.hogapp",
       "googleServicesFile" : "./google-services.json",
-      "useNextNotificationsApi": true
+      "useNextNotificationsApi": true,
+      "config": {
+        "googleSignIn": {
+          "apiKey": "AIzaSyCq7rSBxydgp83VYkczNGqVWjO27tdF6_I",
+          "certificateHash": "28ADF23EEDD16C0CECDDD617495488FD98FD70C3"
+        }
+      }
     },
     "web": {
       "favicon": "./src/assets/favicon.png"

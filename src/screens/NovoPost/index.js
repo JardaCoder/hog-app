@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { View, Text, Image, SafeAreaView, TouchableOpacity,ImageBackground} from "react-native";
+import { View, Text, Image, SafeAreaView, TouchableOpacity,ImageBackground, ScrollView, TextInput} from "react-native";
 import { useUserContext } from "../../contexts/UserContext";
 import stylesDefault from '../../util/style';
 import style from './style';
@@ -27,8 +27,6 @@ export default function NovoPost() {
       quality: 0.7,
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
       let imageUri = Buffer.from(result.base64, "base64");
       setImage(result.uri);
@@ -43,22 +41,31 @@ export default function NovoPost() {
     <SafeAreaView style={[stylesDefault.container]}>
        <Header titulo={"Criar postagem"}/>
       <View style={style.container}>
-        <View style={style.containerImagem}>
-          {image ?
-             <ImageBackground source={{uri : image}} style={style.image} resizeMode="cover">
-                <TouchableOpacity onPress={removerImagem} style={style.apagarImagem}>
-                  <Feather name="trash" size={30} color={global.red} />
+        <ScrollView showsVerticalScrollIndicator={false} style={stylesDefault.scrollView}>
+          <View style={style.containerImagem}>
+            {image ?
+              <ImageBackground source={{uri : image}} style={style.image} resizeMode="cover">
+                  <TouchableOpacity onPress={removerImagem} style={style.apagarImagem}>
+                    <Feather name="trash" size={30} color={global.red} />
+                  </TouchableOpacity>
+              </ImageBackground>
+              :
+              <View style={style.adicionarImagem}>
+                <TouchableOpacity style={style.circuloImagem} onPress={pickImage}>
+                  <Feather name="upload" size={40} color={global.red} />
                 </TouchableOpacity>
-             </ImageBackground>
-             :
-             <View style={style.adicionarImagem}>
-              <TouchableOpacity style={style.circuloImagem} onPress={pickImage}>
-                <Feather name="upload" size={40} color={global.red} />
-              </TouchableOpacity>
-              <Text style={[stylesDefault.textoPadrao, {color:'#fff', marginTop: 10}]}>Adicione uma imagem de capa</Text>
-             </View>
-          }
-        </View>
+                <Text style={[stylesDefault.textoPadrao, {color:'#fff', marginTop: 10}]}>Adicione uma imagem de capa</Text>
+              </View>
+            }
+          </View>
+          <View style={style.inputs}>
+            <View style={style.inputUnico}>
+              <TextInput style={stylesDefault.input}
+                  placeholder="Título do post"
+                />
+            </View>
+          </View>
+        </ScrollView>
       </View>
     </SafeAreaView>
   );

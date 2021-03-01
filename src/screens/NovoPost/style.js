@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     },
     containerImagem:{
         width:'100%',
-        height:200,
+        height:250,
         borderRadius:5,
         backgroundColor:global.blue,
         justifyContent: 'flex-start',
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     adicionarImagem:{
         justifyContent: 'flex-start',
         alignItems:'center',
+        borderRadius: 5,
     },
     image:{
         width:'100%',
@@ -55,6 +56,11 @@ const styles = StyleSheet.create({
         alignItems:'center',
         margin:5,
         opacity:0.7
+    },
+    inputs:{
+        width:'100%',
+        height:'100%',
+        marginTop:20,
     },
     conteudoHeader:{
         marginHorizontal:15, 

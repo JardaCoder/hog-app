@@ -57,8 +57,21 @@ const salvarAlteracoesUsuario = async (usuario) => {
     })
 }
 
+const buscarDadosHome = async (id) => {
+    let home = {};
 
-   return[buscarOuCriarUsuario, salvarAlteracoesUsuario]
+    await api.get('/api/usuario/home?usuarioId=' + id).then((response) => {
+        home = response.data;
+    }).catch((error) => {
+        console.log(error)
+        throw new UsuarioException('Problema ao buscar Usuarios')
+    })
+
+    return home;
+}
+
+
+   return[buscarOuCriarUsuario, salvarAlteracoesUsuario, buscarDadosHome]
 }
 
 export default useUsuario;

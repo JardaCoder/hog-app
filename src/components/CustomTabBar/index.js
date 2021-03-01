@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react'
-import { StyleSheet, View, Dimensions, Text, TouchableOpacity, Image} from 'react-native';
+import { StyleSheet, View, Dimensions, Text, TouchableOpacity, Image, Keyboard} from 'react-native';
 import {FontAwesome5, Ionicons, MaterialIcons   } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
 import { useUserContext } from '../../contexts/UserContext';
@@ -11,9 +11,23 @@ export default function CustomTabBar({state}){
     const [itemWidth, setstate] = useState(0)
     const [userState, dispatch] = useUserContext();
     const [notificationState, dispatchNotification] = useNotificationContext();
+    const [showTab, setShowTab] = useState(true)
+    
+    useEffect(() => {
+        Keyboard.addListener("keyboardDidShow", () =>{
+            setShowTab(false);
+        } )
+        Keyboard.addListener("keyboardDidHide", () => setShowTab(true))
+        return () => {
+            Keyboard.removeListener('keyboardDidShow');
+            Keyboard.removeListener('keyboardDidHide')
+        }
+    }, [])
+
     const navigateTo = (screen) =>{
         navigation.navigate(screen);
     }
+    
     
     const onLayout = (event ) =>{
         var {x, y, width, height} = event.nativeEvent.layout;
@@ -21,6 +35,7 @@ export default function CustomTabBar({state}){
     }
 
     return(
+        !showTab ? null :
         <View style={style.tabArea}>
             <TouchableOpacity style={[style.tabItem]} onPress={() => navigateTo('Home')}>
                 <Ionicons style={{opacity: state.index == 0 ? 1 : 0.7}} name="home-outline" size={24} color="white" />

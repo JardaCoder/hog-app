@@ -33,10 +33,8 @@ var expoPushToken = null;
 const config = {
   androidClientId: "549718483476-h5sab8jhvjs5d3pu91a3i2ju6k5tk0kg.apps.googleusercontent.com",
   scopes: ['profile', 'email'],
-  // expoClientId: `<YOUR_WEB_CLIENT_ID>`,
-  // iosClientId: `<YOUR_IOS_CLIENT_ID>`,
-  // iosStandaloneAppClientId: `<YOUR_IOS_CLIENT_ID>`,
-  // androidStandaloneAppClientId: `<YOUR_ANDROID_CLIENT_ID>`,
+  androidStandaloneAppClientId:'549718483476-c6l0c0revbrre332ohbuch5kft7eshoj.apps.googleusercontent.com'
+    
 };
 
 const googleLogin = async () => {

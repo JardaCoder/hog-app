@@ -41,7 +41,7 @@ const getExpoToken = async () =>{
 
 const buscarNotificacoes =  async (id) => {
     
-    await api.post('/api/notificacao/filtrar?size=7&buscarTodos=true', {usuarioId:id}).then((response) => {
+    await api.post('/api/notificacao/filtrar?buscarTodos=true&sortField=id&sortDirection=DESC', {usuarioId:id}).then((response) => {
         if(response.data)
           dispatch({
               type: 'setNotificacoes',
@@ -60,9 +60,17 @@ const setListeners = (usuarioId) =>{
     Notifications.removeNotificationSubscription(notificationListener);
 }
 
+const visualizarTodas = async (id) => {
+    await api.post('/api/notificacao/visualizar?usuarioId=' + id, {}).then((response) => {
+
+    }).catch((error) => {
+        console.log(error)
+    })
+}
 
 
-   return[getExpoToken, buscarNotificacoes, setListeners]
+
+   return[getExpoToken, buscarNotificacoes, setListeners, visualizarTodas]
 }
 
 export default useNotificacao;

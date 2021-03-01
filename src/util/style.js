@@ -57,6 +57,33 @@ const stylesDefault = StyleSheet.create({
       shadowOpacity: 0.30,
       shadowRadius: 4.65,
       elevation: 5,
+    },
+    scrollView:{
+      width:'100%',
+      height:'100%'
+    },
+    input:{
+      width:'100%',
+      height:50,
+      borderRadius:5,
+      padding:10,
+      backgroundColor:'#fff',
+      fontSize:16,
+      fontFamily:global.fontFamily,
+    },
+    inputUnico:{
+      width:'100%',
+      height:'100%',
+      backgroundColor:'red',
+      padding:20,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 12,
+      },
+      shadowOpacity: 0.58,
+      shadowRadius: 16.00,
+      elevation: 24,
     }
 
 

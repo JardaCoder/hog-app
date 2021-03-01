@@ -13,7 +13,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Preload"
-        headerMode="none">
+        headerMode="none"
+        >
 
         <Stack.Screen name="MainTab" component={MainTab} />
         <Stack.Screen name="Preload" component={Preload} />
