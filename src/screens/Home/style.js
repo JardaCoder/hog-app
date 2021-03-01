@@ -29,32 +29,21 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         flexDirection:'column',
     },
-    cardRanking:{
-        width: '100%',
-        height:60,
-        marginTop:20,
-        borderRadius: 5,
-        backgroundColor:global.blue
-    },
-
     navegarParaRank:{
         justifyContent:'flex-end',
         alignItems:'flex-end',
         alignSelf:'flex-end',
         marginTop: 10,
+        height:20
     },
-    containerButton:{
-      height:'40%',
-      width: '100%',
-      backgroundColor:'white',
-      borderTopRightRadius: 40,
-      borderTopLeftRadius: 40,
-      alignItems: 'center',
-  
+    titulo:{
+        marginTop:20,
+        textAlign:'left',
+        width:'100%'
     },
-    text:{
-      marginBottom: 20,
-      marginTop:'20%'
+    scrollAtalhos:{
+        width: '100%',
+        flexDirection: 'row'
     }
 
   });

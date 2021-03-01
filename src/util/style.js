@@ -13,7 +13,8 @@ global.bold = 'bold'
 const stylesDefault = StyleSheet.create({
     container: {
       flex:1,
-      backgroundColor: global.white
+      backgroundColor: global.white,
+      
     },
     text:{
       fontFamily: global.fontFamily,
@@ -46,18 +47,6 @@ const stylesDefault = StyleSheet.create({
       fontFamily:global.fontFamily,
       fontSize:10,
       color:global.red
-    },
-    tituloHeader:{
-      fontFamily:global.fontFamily,
-      fontSize:30
-    },
-    header:{
-      width: '100%',
-      height: '20%',
-      justifyContent:'center', 
-      alignItems:'center',
-      flexDirection: 'row',
-      backgroundColor: 'white'
     },
     boxShadow: {
       shadowColor: "#000",
