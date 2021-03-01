@@ -2,16 +2,16 @@
 /**
  * lógica interna
  */
+import React, {useRef} from 'react';
 import api from '../services/api'
 import { useNotificationContext } from "../contexts/NotificationContext";
 import Constants from 'expo-constants';
-import { useRef } from "react/cjs/react.development";
 import * as Notifications from 'expo-notifications';
 
 
 function useNotificacao(){
 const [state, dispatch] = useNotificationContext();
-const notificationListener  = useRef();
+const notificationListener  = useRef(null);
 
 function NotificacaoException(message) {
     this.message = message;
