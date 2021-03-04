@@ -55,7 +55,7 @@ export default function Home() {
           {
             ranking.map((item, index) =>{
               return(
-                <CardPosicao cor={global.blue} usuario={item} index={index} 
+                <CardPosicao key={index} cor={global.blue} usuario={item} index={index} 
                   texto={item.id == home.voce.id ? '(Você)' : ""}/>
               )
             })

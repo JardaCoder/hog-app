@@ -29,8 +29,8 @@ export default function Perfil() {
             <Text style={stylesDefault.titulo}>{userState.nome}</Text>
           </View>
           <Text style={[stylesDefault.tituloMaior, style.titulo]}>Pontuação</Text>
-          <CardPosicao cor={global.red}/>
-          <CardPosicao cor={global.blue}/>
+          {/* <CardPosicao cor={global.red}/>
+          <CardPosicao cor={global.blue}/> */}
 
           <View style={style.navegarParaRank}>
             <TouchableOpacity  onPress={() => navegarParaRank()}>

@@ -1,8 +1,5 @@
 import React, {useState} from "react";
-import { View, Text, Image, ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
-import { FontAwesome } from '@expo/vector-icons';
-import styled from 'styled-components/native';
-import stylesDefault from "../../util/style";
+import { View, Text, StyleSheet } from "react-native";
 
 
 
