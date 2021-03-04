@@ -39,7 +39,7 @@ export default function App() {
        
       }else{
         navigation.reset({
-          routes:[{name:'Login'}]
+          routes:[{name:'MainTab'}]
         })
       }
       
