@@ -1,6 +1,5 @@
-import React, {useEffect} from "react";
-import { View, Text, Image, SafeAreaView } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import React from "react";
+import { View, SafeAreaView } from "react-native";
 import { useUserContext } from "../../contexts/UserContext";
 import stylesDefault from '../../util/style';
 import style from './style'

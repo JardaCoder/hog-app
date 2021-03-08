@@ -8,20 +8,20 @@ import { useNotificationContext } from '../../contexts/NotificationContext';
 export default function CustomTabBar({state}){
 
     const navigation = useNavigation();
-    const [itemWidth, setstate] = useState(0)
+    const [itemWidth, setstate] = useState('0')
     const [userState, dispatch] = useUserContext();
     const [notificationState, dispatchNotification] = useNotificationContext();
     const [showTab, setShowTab] = useState(true)
     
     useEffect(() => {
-        Keyboard.addListener("keyboardDidShow", () =>{
-            setShowTab(false);
-        } )
-        Keyboard.addListener("keyboardDidHide", () => setShowTab(true))
-        return () => {
-            Keyboard.removeListener('keyboardDidShow');
-            Keyboard.removeListener('keyboardDidHide')
-        }
+        // Keyboard.addListener("keyboardDidShow", () =>{
+        //     setShowTab(false);
+        // } )
+        // Keyboard.addListener("keyboardDidHide", () => setShowTab(true))
+        // return () => {
+        //     Keyboard.removeListener('keyboardDidShow');
+        //     Keyboard.removeListener('keyboardDidHide')
+        // }
     }, [])
 
     const navigateTo = (screen) =>{

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { createStackNavigator } from '@react-navigation/stack';
 import Ranking  from '../screens/Ranking/index'
 import Perfil from './../screens/Perfil/index';

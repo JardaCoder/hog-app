@@ -1,6 +1,5 @@
-import React, {useEffect, useState, useCallback} from "react";
-import { View, Text, Image, SafeAreaView, ScrollView} from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import React, { useState, useCallback } from "react";
+import { View, Text, Image, SafeAreaView, ScrollView, TouchableOpacity} from "react-native";
 import { useUserContext } from "../../contexts/UserContext";
 import stylesDefault from './../../util/style';
 import style from './style';
@@ -49,7 +48,7 @@ export default function Home() {
               <Text style={stylesDefault.textoPadrao}>Pontuação atual: {home.voce.pontosSplit}</Text>
             </View>
         </View>
-          {home.voce &&(
+          {/* {home.voce &&(
               <CardPosicao cor={global.red} usuario={home.voce} posicao={home.voce.posicao} texto={'(Você)'}/>
           )}
           {
@@ -59,7 +58,7 @@ export default function Home() {
                   texto={item.id == home.voce.id ? '(Você)' : ""}/>
               )
             })
-          }  
+          }   */}
         <View style={style.navegarParaRank}>
           <TouchableOpacity  onPress={() => navegarParaRank()}>
             <Text style={stylesDefault.textoPequenoRed}> + ver rank completo</Text>

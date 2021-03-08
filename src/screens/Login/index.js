@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import { View, Text, Image, ImageBackground, Alert, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Google from 'expo-google-app-auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Permissions from 'expo-permissions';
 
 
@@ -13,9 +12,6 @@ import styleDefault from '../../util/style'
 import Button from '../../components/Button/button'
 import style from "./style";
 import { useNavigation } from "@react-navigation/core";
-import mainTab from './../../stacks/MainTab';
-import { useUserContext } from "../../contexts/UserContext";
-import api from '../../services/api'
 import useUsuario from "../../hooks/useUsuario";
 import useNotificacao from "../../hooks/useNotificacao";
 

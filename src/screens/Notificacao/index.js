@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { View, Text, Image, SafeAreaView, FlatList, TouchableOpacity, StyleSheet, StatusBar, TouchableHighlight, ActivityIndicator } from "react-native";
 import stylesDefault from '../../util/style';
 import Header from '../../components/Header/header'

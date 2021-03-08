@@ -1,14 +1,14 @@
 import React, {useEffect} from "react";
-import { View, Text, Image, SafeAreaView, ScrollView, Dimensions } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { View, Text, Image, SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
 import { useUserContext } from "../../contexts/UserContext";
 import stylesDefault from '../../util/style';
 import style from './style';
 import Header from './../../components/Header/header';
 import CardPosicao from './../../components/CardPosicao/index';
 import CardInformativo from './../../components/CardInformativo/index';
-import util from '../../util/util';
+//import util from '../../util/util';
 import { useNavigation } from "@react-navigation/core";
+import * as Linking from 'expo-linking';
 
 export default function Perfil() {
 
@@ -18,6 +18,11 @@ export default function Perfil() {
   const navegarParaRank =  () =>{
     navigation.push('Ranking')
   }
+  
+  const abrirLink = (link) => {
+    if(link)
+      Linking.openURL(link)
+}
 
   return (
     <SafeAreaView style={[stylesDefault.container]}>
@@ -29,8 +34,8 @@ export default function Perfil() {
             <Text style={stylesDefault.titulo}>{userState.nome}</Text>
           </View>
           <Text style={[stylesDefault.tituloMaior, style.titulo]}>Pontuação</Text>
-          <CardPosicao cor={global.red}/>
-          <CardPosicao cor={global.blue}/>
+          {/* <CardPosicao cor={global.red} usuario={{}} index={0}/>
+          <CardPosicao cor={global.blue} usuario={{}} index={0}/> */}
 
           <View style={style.navegarParaRank}>
             <TouchableOpacity  onPress={() => navegarParaRank()}>
@@ -41,8 +46,8 @@ export default function Perfil() {
           <Text style={[stylesDefault.tituloMaior, style.titulo]}>Atalhos:</Text>
           <ScrollView horizontal={true} style={style.scrollAtalhos}>
             <CardInformativo titulo="Minhas postagens"/>
-            <CardInformativo titulo= "TechWiki" onPress={() => util.abrirLink("http://techwiki.souhibrido.com.br/")}/>
-            <CardInformativo titulo= "Vagas" onPress={() => util.abrirLink("https://www.hibrido.com.br/vagas/")}/>
+            <CardInformativo titulo= "TechWiki" onPress={() => abrirLink("http://techwiki.souhibrido.com.br/")}/>
+            <CardInformativo titulo= "Vagas" onPress={() => abrirLink("https://www.hibrido.com.br/vagas/")}/>
           </ScrollView>
           <View style={style.navegarParaRank}>
             <TouchableOpacity  onPress={() => navegarParaRank()}>

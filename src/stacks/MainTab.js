@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Post from '../screens/Post/index';
 import NovoPost from '../screens/NovoPost/index';
