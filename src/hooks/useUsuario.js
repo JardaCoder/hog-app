@@ -37,7 +37,6 @@ const buscarOuCriarUsuario = async (googleUser, expoPushToken) =>{
         usuario = response.data;
 
     }).catch((error) => {
-        console.log(error)
         throw new UsuarioException('Problema ao criar ou buscar usuário')
     })
 

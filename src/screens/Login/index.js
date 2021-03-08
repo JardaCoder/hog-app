@@ -9,7 +9,7 @@ import image from '../../assets/login.png';
 import iconeHibrido from '../../assets/hibriBranco.png';
 import styleDefault from '../../util/style'
 
-import Button from '../../components/Button/button'
+import Button from '../../components/button/button'
 import style from "./style";
 import { useNavigation } from "@react-navigation/core";
 import useUsuario from "../../hooks/useUsuario";
@@ -23,15 +23,14 @@ const [buscarOuCriarUsuario] = useUsuario();
 const [getExpoToken, buscarNotificacoes, setListeners] = useNotificacao();
 var expoPushToken = null;
 
-
-
-
 const config = {
   androidClientId: "549718483476-h5sab8jhvjs5d3pu91a3i2ju6k5tk0kg.apps.googleusercontent.com",
   scopes: ['profile', 'email'],
   androidStandaloneAppClientId:'549718483476-c6l0c0revbrre332ohbuch5kft7eshoj.apps.googleusercontent.com'
     
 };
+
+
 
 const googleLogin = async () => {
   try {
@@ -65,7 +64,14 @@ const googleLogin = async () => {
   }
 }
 
+<<<<<<< HEAD
+
+
+
+const pedirPermissoes = () => {
+=======
 const pedirPermissoes = async () => {
+>>>>>>> 142c37a0f4d16743846d67b9e7fa736e66812007
   Permissions.askAsync(Permissions.MEDIA_LIBRARY, Permissions.NOTIFICATIONS);
   expoPushToken = await getExpoToken();
 }

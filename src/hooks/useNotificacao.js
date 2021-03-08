@@ -2,7 +2,11 @@
 /**
  * lógica interna
  */
+<<<<<<< HEAD
 import React from "react";
+=======
+import React, {useRef} from 'react';
+>>>>>>> 151b72b77a571a2ed57c5c5df7c3eb16636002d7
 import api from '../services/api'
 import { useNotificationContext } from "../contexts/NotificationContext";
 import Constants from 'expo-constants';
@@ -11,7 +15,11 @@ import * as Notifications from 'expo-notifications';
 
 function useNotificacao(){
 const [state, dispatch] = useNotificationContext();
+<<<<<<< HEAD
 const notificationListener  = React.useRef(null);
+=======
+const notificationListener  = useRef(null);
+>>>>>>> 151b72b77a571a2ed57c5c5df7c3eb16636002d7
 
 function NotificacaoException(message) {
     this.message = message;

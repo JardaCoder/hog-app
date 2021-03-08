@@ -63,14 +63,24 @@ const stylesDefault = StyleSheet.create({
       height:'100%'
     },
     input:{
-      width:'100%',
-      height:50,
-      borderRadius:5,
-      padding:10,
+      borderWidth: 0,
       backgroundColor:'#fff',
-      fontSize:16,
-      fontFamily:global.fontFamily,
-    },
+      borderRadius: 4,
+      width: '95%',
+      fontSize: 18,
+      fontFamily: global.fontFamily,
+      paddingLeft: 20,
+      height: 50,
+      lineHeight: 20,
+      shadowOffset: {
+          width: 0,
+          height: 2,
+      },
+      shadowOpacity: 0.16,
+      shadowRadius: 3.84,
+      elevation: 5,
+      marginLeft: '2.5%'
+  },
     inputUnico:{
       width:'100%',
       height:'100%',

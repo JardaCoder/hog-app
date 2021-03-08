@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+=======
+import React, {useState} from "react";
+import { View, Text, StyleSheet } from "react-native";
+
+>>>>>>> 151b72b77a571a2ed57c5c5df7c3eb16636002d7
 
 
 export default function Header(props) {
