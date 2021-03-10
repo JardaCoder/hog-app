@@ -1,4 +1,4 @@
-import React, {} from "react";
+import React from "react";
 import {Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import stylesDefault from "../../util/style";
 import {MaterialIcons } from '@expo/vector-icons';

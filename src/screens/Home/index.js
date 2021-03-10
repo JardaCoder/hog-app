@@ -74,8 +74,8 @@ export default function Home() {
         <Text style={[stylesDefault.tituloMaior, style.titulo]}>Categorias:</Text>
         <ScrollView horizontal={true} style={style.scrollAtalhos}>
             <CardInformativo icon={<MaterialIcons name="message" size={40} color="#fff" />}  color={global.red} titulo="Recados"/>
-            <CardInformativo icon={<MaterialIcons  name="dynamic-feed" size={40} color="#fff" />}  onPress={() => navigation.push('Post')} color={global.blue} titulo= "Projetos"/>
-            <CardInformativo icon={<MaterialCommunityIcons name="hand-pointing-right" size={40} color="#fff" />} onPress={() => navigation.push('Post', {tipo:'indicacao'})} color={global.blue} titulo= "Indicações"/>
+            <CardInformativo icon={<MaterialIcons  name="dynamic-feed" size={40} color="#fff" />}  onPress={() => navigation.navigate('Post')} color={global.blue} titulo= "Projetos"/>
+            <CardInformativo icon={<MaterialCommunityIcons name="hand-pointing-right" size={40} color="#fff" />} onPress={() => navigation.navigate('Post', {tipo:'indicacao'})} color={global.blue} titulo= "Indicações"/>
     
         </ScrollView>
 

@@ -12,9 +12,6 @@ import styleDefault from '../../util/style'
 import Button from '../../components/Button/button'
 import style from "./style";
 import { useNavigation } from "@react-navigation/core";
-import mainTab from './../../stacks/MainTab';
-import { useUserContext } from "../../contexts/UserContext";
-import api from '../../services/api'
 import useUsuario from "../../hooks/useUsuario";
 import useNotificacao from "../../hooks/useNotificacao";
 
