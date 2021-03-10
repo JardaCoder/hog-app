@@ -68,14 +68,7 @@ const googleLogin = async () => {
   }
 }
 
-<<<<<<< HEAD
-
-
-
-const pedirPermissoes = () => {
-=======
 const pedirPermissoes = async () => {
->>>>>>> 142c37a0f4d16743846d67b9e7fa736e66812007
   Permissions.askAsync(Permissions.MEDIA_LIBRARY, Permissions.NOTIFICATIONS);
   expoPushToken = await getExpoToken();
 }
