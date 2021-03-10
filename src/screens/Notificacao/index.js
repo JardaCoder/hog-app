@@ -8,6 +8,7 @@ import { useNotificationContext } from "../../contexts/NotificationContext";
 import { useUserContext } from "../../contexts/UserContext";
 import useNotificacao from './../../hooks/useNotificacao';
 import { useNavigation } from '@react-navigation/core';
+import ListVazia from './../../components/ListVazia/header';
 
 export default function Notificacao( ) {
 
@@ -61,6 +62,7 @@ export default function Notificacao( ) {
         // onEndReached={() => alert('Oi')}
         // onEndReachedThreshold={0.1}
         onRefresh={buscarNotificacoes}
+        ListEmptyComponent={<ListVazia titulo="Nenhuma notificação encontrada"/>}
         refreshing={false}
         ListFooterComponent={() =>(
           loading ? 

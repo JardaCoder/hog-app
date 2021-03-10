@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import { View, Text, Image, ImageBackground, Alert, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Google from 'expo-google-app-auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Permissions from 'expo-permissions';
 
 
@@ -10,7 +9,7 @@ import image from '../../assets/login.png';
 import iconeHibrido from '../../assets/hibriBranco.png';
 import styleDefault from '../../util/style'
 
-import Button from '../../components/button/button'
+import Button from '../../components/Button/button'
 import style from "./style";
 import { useNavigation } from "@react-navigation/core";
 import mainTab from './../../stacks/MainTab';
@@ -68,14 +67,7 @@ const googleLogin = async () => {
   }
 }
 
-<<<<<<< HEAD
-
-
-
-const pedirPermissoes = () => {
-=======
 const pedirPermissoes = async () => {
->>>>>>> 142c37a0f4d16743846d67b9e7fa736e66812007
   Permissions.askAsync(Permissions.MEDIA_LIBRARY, Permissions.NOTIFICATIONS);
   expoPushToken = await getExpoToken();
 }

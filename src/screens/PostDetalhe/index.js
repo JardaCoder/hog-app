@@ -1,5 +1,5 @@
-import React, {useEffect, useState, useRef} from "react";
-import { View, Text, Image, SafeAreaView, FlatList, ActivityIndicator, ImageBackground,TouchableOpacity } from "react-native";
+import React, {useEffect, useState, useRef } from "react";
+import { View, Text, Image, SafeAreaView, ScrollView, ActivityIndicator, ImageBackground,TouchableOpacity } from "react-native";
 import { useUserContext } from "../../contexts/UserContext";
 import stylesDefault from '../../util/style';
 import style from './style'
@@ -19,45 +19,7 @@ export default function PostDetalhe({navigation, route}) {
   const navegarParaRank =  () =>{
     //TODO
   }
-  const DATA = [
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },    
-  ];
-
+  
   const buscarPosts = () =>{
     
   }
@@ -81,12 +43,38 @@ export default function PostDetalhe({navigation, route}) {
   return (
     <SafeAreaView style={[stylesDefault.container]}>
       <Header titulo={"Detalhes do post"}></Header>
-      <View style={style.container}>
-      <ImageBackground source={{uri : post.image.url}} style={style.image} resizeMode="cover">
-              <Text style={[stylesDefault.textoPadrao, style.textoCard]}>Festa chapacera sexta depois do trampo</Text>
-              <Text style={[style.textoCategoria, {backgroundColor:'red'}]}>Projeto interno</Text>
-      </ImageBackground>
-      </View>
+        <ScrollView showsVerticalScrollIndicator={false} style={stylesDefault.scrollView}>
+          <View style={style.container}>
+            <ImageBackground source={{uri : post.imagem?.urlImagem}} style={style.image} resizeMode="cover">
+                  <Text style={[style.textoCategoria, {backgroundColor:post.categoria?.hexaCor}]}>{post.categoria?.nome}</Text>
+            </ImageBackground>
+        
+            <View style={{width:'95%'}}>
+              <Text style={[stylesDefault.titulo, style.textoTitulo]}>Título</Text>
+              <Text style={[stylesDefault.textoPadrao, style.textoInfo]}>{post.titulo}</Text>
+            </View>
+            <View style={{width:'95%'}}>
+              <Text style={[stylesDefault.titulo, style.textoTitulo]}>Descrição</Text>
+              <Text style={[stylesDefault.textoPadrao, style.textoInfo]}>{post.descricao}</Text>
+            </View>
+
+            {post.objetivo &&(
+              <View style={{width:'95%'}}>
+                <Text style={[stylesDefault.titulo, style.textoTitulo]}>Objetivo</Text>
+                <Text style={[stylesDefault.textoPadrao, style.textoInfo]}>{post.objetivo}</Text>
+              </View>
+            )}
+
+            {post.beneficios &&(
+              <View style={{width:'95%'}}>
+                <Text style={[stylesDefault.titulo, style.textoTitulo]}>Benefícios</Text>
+                <Text style={[stylesDefault.textoPadrao, style.textoInfo]}>{post.beneficios}</Text>
+              </View>
+            )}
+
+         
+          </View>
+        </ScrollView>
     </SafeAreaView>
   );
 }

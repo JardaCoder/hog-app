@@ -13,7 +13,9 @@ const styles = StyleSheet.create({
     },
     container:{
         marginTop:'10%',
+        height:'100%',
         marginHorizontal:15,
+        marginBottom:40,
         justifyContent: 'flex-start',
         alignItems:'center',
     },
@@ -58,6 +60,7 @@ const styles = StyleSheet.create({
         opacity:0.7
     },
     inputs:{
+        flex:1,
         width:'100%',
         height:'100%',
         marginTop:20,
@@ -95,6 +98,16 @@ const styles = StyleSheet.create({
     text:{
       marginBottom: 20,
       marginTop:'20%'
+    }, 
+    inputUnico:{
+        marginVertical:5
+    },
+    botao:{
+        width:'80%',
+        marginTop:15,
+        justifyContent:'center',
+        alignItems:'center',
+        alignSelf:'center'
     }
 
   });

@@ -1,149 +1,203 @@
-import React, {useEffect, useState, useRef} from "react";
-import { View, Text, Image, SafeAreaView, FlatList, ActivityIndicator, ImageBackground,TouchableOpacity } from "react-native";
+import React, {useEffect, useState, useRef, useCallback} from "react";
+import { View, Text, Image, SafeAreaView, FlatList, ActivityIndicator, ImageBackground,TouchableOpacity,ScrollView } from "react-native";
 import { useUserContext } from "../../contexts/UserContext";
 import stylesDefault from '../../util/style';
 import style from './style'
 import Header from './../../components/Header/header';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
-import { FontAwesome5,AntDesign  } from '@expo/vector-icons'; 
+import { FontAwesome5,AntDesign,FontAwesome  } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/core';
+import usePost from './../../hooks/usePost';
+import ListVazia from './../../components/ListVazia/header';
+import api from '../../services/api';
+import { useFocusEffect } from '@react-navigation/native';
 
-export default function Post() {
+export default function Post({route}) {
 
+  const tipo = route.params?.tipo == 'indicacao' ? 1 : 0;
   const [userState, dispatch] = useUserContext();
-  const [loading, setLoading] = useState(true);
-  const [up, setUp] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [update, setUpdate] = useState(0);
   const menu = useRef(null);
-  const image = 'https://passevip.com.br/wp-content/uploads/2018/04/2018-04-23-como-aumentar-o-alcance-e-atrair-publico-para-seu-evento.jpg'
+  const menuFiltro = useRef(null);
+  const [buscarPosts] = usePost();
+  const [dados, setDados] = useState([]);
+  const [filter, setFilter] = useState(tipo)
+  const filtro = {tipoPost:'PROJETO'};
+  const [categorias, setCategorias] = useState([]);
 
   const navigation = useNavigation();
 
-  const navegarParaRank =  () =>{
-    //TODO
+  const buscarCategorias = async () =>{
+    await api.get('/api/categoria/todos').then(result => {
+      setCategorias(result.data);
+    });
   }
-  const DATA = [
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação", 
-      image:{url:image}
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },
-    {
-      titulo:"Sua publicação teve 50 ups!",
-      mensagem:"Jardel e mais 49 pessoas curtiram sua publicação"
-    },    
-  ];
+
 
   const verDetalhes = (post) => {
-    navigation.navigate("PostDetalhe", {post:post})
+    navigation.push("PostDetalhe", {post:post})
   }
 
-  const buscarPosts = () =>{
-    
+  const buscarTodosPosts = async () => {
+    console.log('op')
+    setLoading(true);
+    let dados = await buscarPosts({});
+    setDados(dados); 
+    setLoading(false);
   }
 
-  const upCard = () =>{
-
+  const upCard = (item, index) =>{
+    item.quantidadeUp++;
+    setUpdate(update + 1);
   }
 
-  const showMenu = () =>{
-    menu.current.show();
+  const downCard = (item, index) =>{
+    item.quantidadeDown++;
+    setUpdate(update + 1);
   }
 
-  const hideMenu = () =>{
-    menu.current.hide();
+  const showMenu = (ref) =>{
+    ref.current.show();
+  }
+
+  const hideMenu = (ref) =>{
+    ref.current.hide();
   }
 
   const onHiddenMenu = () =>{
-    buscarPosts();
+    buscarTodosPosts();
+  }
+  
+  const mudarFilterState = (state) =>{
+    setFilter(state);
+    buscarTodosPosts();
   }
 
-  const Item = ({ item, onPress}) => (
+  const renderCategoria = useCallback(
+    () => {
+      return categorias.map((item, index) => (
+        <MenuItem key={index} onPress={() =>{hideMenu(menuFiltro); filtro.categoriaId = item.id}}>{item.nome}</MenuItem>
+      ));
+    },
+    [categorias],
+  )
+
+  const Item = ({ item, onPress, index}) => (
     <TouchableOpacity onPress={onPress} style={[style.item, stylesDefault.boxShadow,  ]}>
-          <ImageBackground source={{uri : image}} style={style.image} resizeMode="cover">
-              <Text style={[stylesDefault.textoPadrao, style.textoCard]}>Festa chapacera sexta depois do trampo</Text>
-              <Text style={[style.textoCategoria, {backgroundColor:'red'}]}>Projeto interno</Text>
+          <ImageBackground source={{uri : item.imagem?.urlImagem}} style={style.image} resizeMode="cover">
+              <Text style={[stylesDefault.textoPadrao, style.textoCard]}>{item.titulo}</Text>
+              <Text style={[style.textoCategoria, {backgroundColor: item.categoria?.hexaCor}]}>{item.categoria?.nome}</Text>
           </ImageBackground>
        <View style={[style.footerCard]}>
           <Image source={{uri:userState.fotoUrl}} style={style.imagemUsuario}></Image>
           <View style={style.containerTexto}>
-              <Text style={stylesDefault.textoPadraoBold}>{userState.nome}</Text>
-              <Text style={stylesDefault.textoPequenoRed}>50 pontos</Text>
+              <Text style={stylesDefault.textoPadraoBold}>{item.usuario?.nome}</Text>
+              <Text style={stylesDefault.textoPequenoRed}>{item.usuario?.pontosSplit} pontos</Text>
           </View>
           <View style={style.botoes}>
-          <TouchableOpacity style={style.up}>
+          <TouchableOpacity style={style.up} onPress={() => upCard(item, index)}>
               <AntDesign name="up" size={24} color="#fff" />
+              <Text style={style.quantidadeUpDown}>{item.quantidadeUp || 0}</Text>
           </TouchableOpacity>
-          <TouchableOpacity  style={style.up}>
+          <TouchableOpacity  style={style.up} onPress={() => downCard(item, index)}>
+              <Text style={style.quantidadeUpDown}>{item.quantidadeDown || 0}</Text>
               <AntDesign name="down" size={24} color="#fff" />
           </TouchableOpacity>
           </View>
        </View>
     </TouchableOpacity>
   );
+  
 
-  const renderItem = ({ item }) => {
-    return (
-      <Item
-        item={item}
-        onPress={() =>verDetalhes(item)}
-      />
-    );
-  };
+  const renderItem = useCallback(
+    ({ item, index}) => {
+      return (
+        <Item
+          item={item}
+          onPress={() =>verDetalhes(item)}
+          index={index}
+        />
+      );
+    },
+    [update],
+  )
+
+  useFocusEffect(
+    React.useCallback(() => {
+      buscarTodosPosts()
+    
+    }, [])
+  )
+
+
+  useEffect(() => {
+    filtro.tipoPost = filter == 0 ? 'PROJETO' : 'INDICACAO';
+  }, [filter])
+
+  useEffect(() => {
+    buscarCategorias();
+  }, [])
+
   return (
+    // loading ? <Loading/> :
     <SafeAreaView style={[stylesDefault.container]}>
       <Header titulo={"Postagens"}></Header>
       <View style={style.container}>
         <FlatList
           style={style.lista}
           showsVerticalScrollIndicator={false}
-          data={DATA}
+          data={dados}
+          extraData={update}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           // onEndReached={() => alert('Oi')}
           // onEndReachedThreshold={0.1}
-          //onRefresh={buscarNotificacoes}
+          //onRefresh={buscarPosts}
           refreshing={false}
-          ListHeaderComponentStyle={{height:50, backgroundColor:'#fff', paddingHorizontal:15}}
+          ListEmptyComponent={ !loading ? <ListVazia titulo="Nenhum post encontrado"/> : null}
+          ListHeaderComponentStyle={{height:70, backgroundColor:'#fff', paddingHorizontal:15}}
           ListHeaderComponent={() =>(
             <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-              <Menu
-                ref={menu}
-                onHidden={onHiddenMenu}
-                button={<FontAwesome5 onPress={showMenu} name="sort-amount-up-alt" size={24} color="black" />}
-              >
-                <MenuItem onPress={hideMenu} disabled>Ordenar por</MenuItem>
-                <MenuDivider />
-                <MenuItem onPress={hideMenu}>Mais recente</MenuItem>
-                <MenuItem onPress={hideMenu} >Mais curtido</MenuItem>
-              </Menu>
+              <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{width: '100%', flexDirection:'row', height:30, marginBottom:10}}>
+                <TouchableOpacity style={[style.itemHeader,
+                   {borderBottomColor:filter == 0 ? global.lightBlue : 'transparent'}]} onPress={() => mudarFilterState(0)}>
+                  <Text style={[stylesDefault.textoPadrao, {fontSize:14}]}>Projetos</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[style.itemHeader, 
+                  {borderBottomColor:filter == 2 ? global.lightBlue : 'transparent'}]}  onPress={() => mudarFilterState(2)}>
+                  <Text style={[stylesDefault.textoPadrao, {fontSize:14}]}>Em andamento</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[style.itemHeader, 
+                  {borderBottomColor:filter == 1 ? global.lightBlue : 'transparent'}]}  onPress={() => mudarFilterState(1)}>
+                  <Text style={[stylesDefault.textoPadrao, {fontSize:14}]}>Indicações</Text>
+                </TouchableOpacity>
+              </ScrollView>
+
+              <View style={[style.containerFiltros, {justifyContent: filter != 1 ? 'space-between' : 'flex-end'}]}>
+                {filter != 1 &&(
+                  <Menu
+                    ref={menuFiltro}
+                    onHidden={onHiddenMenu}
+                    button={<FontAwesome onPress={() => showMenu(menuFiltro)} name="filter" size={24} color="black" />}
+                  >
+                    <MenuItem onPress={() => hideMenu(menuFiltro)} disabled>Categoria</MenuItem>
+                    <MenuDivider />
+                    {renderCategoria()}
+                  </Menu>
+                )}
+
+                <Menu
+                  ref={menu}
+                  onHidden={onHiddenMenu}
+                  button={<FontAwesome5  onPress={() => showMenu(menu)} name="sort-amount-up-alt" size={24} color="black" />}
+                >
+                  <MenuItem onPress={() => hideMenu(menu)} disabled>Ordenar por</MenuItem>
+                  <MenuDivider />
+                  <MenuItem onPress={() => hideMenu(menu)}>Mais recente</MenuItem>
+                  <MenuItem onPress={() => hideMenu(menu)} >Mais curtido</MenuItem>
+                </Menu>
+              </View>
             </View>
           )}
           ListFooterComponent={() =>(

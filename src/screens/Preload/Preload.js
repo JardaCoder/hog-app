@@ -23,7 +23,7 @@ export default function App() {
     })
 
     const verificarUsuario = async () => {
-     // await AsyncStorage.clear();
+     ///await AsyncStorage.clear();
       let usuario = JSON.parse(await AsyncStorage.getItem('usuario'));
       if(usuario && usuario.id){
         dispatch({
@@ -39,7 +39,7 @@ export default function App() {
        
       }else{
         navigation.reset({
-          routes:[{name:'MainTab'}]
+          routes:[{name:'Login'}]
         })
       }
       

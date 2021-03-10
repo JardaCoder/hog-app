@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
     container:{
         justifyContent: 'flex-start',
         alignItems:'center',
+        marginBottom:40
     },
     text:{
         marginBottom: 20,
@@ -44,12 +45,22 @@ const styles = StyleSheet.create({
         justifyContent:'flex-start',
         alignItems:'flex-start'
     },
-    textoCard:{
-        width:'80%',
+    textoTitulo:{
+        width:'90%',
         marginTop:20,
         marginLeft:20,
-        color:'#fff',
+        color:'#000',
         textAlign:'left',
+        fontFamily:global.bold
+      
+    },
+    textoInfo:{
+        width:'90%',
+        marginTop:0,
+        marginLeft:20,
+        color:'#000',
+        textAlign:'left',
+        flexWrap:"wrap",
       
     },
     imagemUsuario:{
