@@ -1,3 +1,5 @@
+import React from "react";
+
 const initialState = {
     notificacoes:[],
     quantidade:'0'

@@ -1,5 +1,7 @@
+import React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Notifications from 'expo-notifications';
+
 
 /**
  * lógica interna

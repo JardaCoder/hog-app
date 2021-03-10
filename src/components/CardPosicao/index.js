@@ -1,4 +1,4 @@
-import React, {} from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 import stylesDefault from "../../util/style";
@@ -8,12 +8,11 @@ import stylesDefault from "../../util/style";
 export default function cardPosicao(props) {
 
   const posicao = props.posicao ? props.posicao : props.index + 1;
+  const usuario = props.usuario;
   return (
     <View style={[style.cardRanking, {backgroundColor:props.cor}]}>
       <View style={style.grupoTexto}>
-
         <Text style={[stylesDefault.textoPadrao, {color:'white'}]}>{posicao}º</Text>
-        
         <Text style={[stylesDefault.textoPadrao, style.grupoTextoSegundoItem]}>{props.usuario.nome} {props.texto}</Text>
       </View>
       <View style={style.grupoTexto}>

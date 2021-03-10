@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 
 global.red = '#F24150';
@@ -60,7 +60,7 @@ const stylesDefault = StyleSheet.create({
     },
     scrollView:{
       width:'100%',
-      height:'100%'
+      height:Dimensions.get('screen').height,
     },
     input:{
       borderWidth: 0,
@@ -81,20 +81,26 @@ const stylesDefault = StyleSheet.create({
       elevation: 5,
       marginLeft: '2.5%'
   },
-    inputUnico:{
-      width:'100%',
-      height:'100%',
-      backgroundColor:'red',
-      padding:20,
-      shadowColor: "#000",
+  textArea:{
+    borderWidth: 0,
+      backgroundColor:'#fff',
+      borderRadius: 4,
+      width: '95%',
+      fontSize: 18,
+      fontFamily: global.fontFamily,
+      paddingLeft: 20,
+      height: 150,
+      lineHeight: 20,
       shadowOffset: {
-        width: 0,
-        height: 12,
+          width: 0,
+          height: 2,
       },
-      shadowOpacity: 0.58,
-      shadowRadius: 16.00,
-      elevation: 24,
-    }
+      shadowOpacity: 0.16,
+      shadowRadius: 3.84,
+      elevation: 5,
+      textAlignVertical:'top',
+      marginLeft: '2.5%'
+  }
 
 
   });

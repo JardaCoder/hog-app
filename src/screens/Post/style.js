@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const styles = StyleSheet.create({
 
@@ -82,8 +82,25 @@ const styles = StyleSheet.create({
         margin:4,
         padding:2,
         fontSize:10
+    },
+    quantidadeUpDown:{
+        fontFamily:global.fontFamily,
+        fontSize:10, 
+        color:'#fff'
+    }, 
+    itemHeader:{
+        width: Dimensions.get('screen').width / 3.1,
+        alignItems:'center',
+        justifyContent:'center',
+        borderBottomWidth: 2
+    },
+    containerFiltros:{
+        width: '100%',
+        alignItems:'flex-end',
+        flexDirection:'row',
+        justifyContent:'space-between',
+        marginBottom:10
     }
-
   });
 
  export default styles;

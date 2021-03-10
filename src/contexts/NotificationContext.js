@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import {createContext, useReducer, useContext} from 'react'
 import NotificationReducer from "../reducers/NotificationReducer";
 

@@ -1,4 +1,4 @@
-import React, {} from "react";
+import React from "react";
 import {Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import stylesDefault from "../../util/style";
 import {MaterialIcons } from '@expo/vector-icons';
@@ -14,7 +14,7 @@ export default function cardInformativo(props) {
     <TouchableOpacity onPress={() => props.onPress ?  props.onPress() : console.log('noPress')}
       style={[stylesDefault.boxShadow, style.card, {backgroundColor: background }]}>
       
-        <MaterialIcons  name="dynamic-feed" size={40} color={color} />
+        {props.icon}
         <Text style={[stylesDefault.textoPadrao, {textAlign:'center', color: color }]}>{props.titulo}</Text>
       
     </TouchableOpacity>

@@ -9,6 +9,7 @@ import CardInformativo from "../../components/CardInformativo";
 import { useNavigation } from "@react-navigation/core";
 import useUsuario from './../../hooks/useUsuario';
 import { useFocusEffect } from '@react-navigation/native';
+import {MaterialIcons, FontAwesome5, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 export default function Home() {
@@ -32,6 +33,15 @@ export default function Home() {
     navigation.push('Ranking')
   }
 
+  const rankingMap = () =>{
+    return ranking.map((item, index) =>{
+      return(
+        <CardPosicao key={index} cor={global.blue} usuario={item} index={index} 
+          texto={item.id == home.voce.id ? '(Você)' : ""}/>
+      )
+    })
+  }
+
 
   useFocusEffect(useCallback(() => {
       buscarDados();
@@ -46,19 +56,15 @@ export default function Home() {
             <View style={style.conteudoHeader}>
               <Text style={stylesDefault.titulo}>Oi, {userState.nome}</Text>
               <Text style={stylesDefault.tituloMaior}>Tudo bem?</Text>
-              <Text style={stylesDefault.textoPadrao}>Pontuação atual: {home.voce.pontosSplit}</Text>
+
+              <Text style={stylesDefault.textoPadrao}>Pontuação atual: {home.voce?.pontosSplit}</Text>
             </View>
         </View>
           {home.voce &&(
               <CardPosicao cor={global.red} usuario={home.voce} posicao={home.voce.posicao} texto={'(Você)'}/>
           )}
           {
-            ranking.map((item, index) =>{
-              return(
-                <CardPosicao key={index} cor={global.blue} usuario={item} index={index} 
-                  texto={item.id == home.voce.id ? '(Você)' : ""}/>
-              )
-            })
+            rankingMap()
           }  
         <View style={style.navegarParaRank}>
           <TouchableOpacity  onPress={() => navegarParaRank()}>
@@ -67,10 +73,10 @@ export default function Home() {
         </View>
         <Text style={[stylesDefault.tituloMaior, style.titulo]}>Categorias:</Text>
         <ScrollView horizontal={true} style={style.scrollAtalhos}>
-            <CardInformativo color={global.red} titulo="Recados"/>
-            <CardInformativo color={global.blue} titulo= "Projetos"/>
-            <CardInformativo color={global.blue} titulo= "Indicações"/>
-            <CardInformativo color={global.blue} titulo= "Vagas"/>
+            <CardInformativo icon={<MaterialIcons name="message" size={40} color="#fff" />}  color={global.red} titulo="Recados"/>
+            <CardInformativo icon={<MaterialIcons  name="dynamic-feed" size={40} color="#fff" />}  onPress={() => navigation.navigate('Post')} color={global.blue} titulo= "Projetos"/>
+            <CardInformativo icon={<MaterialCommunityIcons name="hand-pointing-right" size={40} color="#fff" />} onPress={() => navigation.navigate('Post', {tipo:'indicacao'})} color={global.blue} titulo= "Indicações"/>
+    
         </ScrollView>
 
       </View>

@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
         marginBottom:150
     },
     image:{
-        width: 40,
-        height:45,
+        width: 50,
+        height:60,
         borderRadius: 5
     },
     containerTexto:{

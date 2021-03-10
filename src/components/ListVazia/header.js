@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { Entypo } from '@expo/vector-icons'; 
 
 
-export default function Header(props) {
+
+export default function ListVazia(props) {
   return (
     <View style={style.header}>
+      <Entypo name="emoji-sad" size={50} color="black" />
       <Text style={style.tituloHeader}>{props.titulo}</Text>
     </View>
   );
@@ -15,17 +18,18 @@ export default function Header(props) {
 const style = StyleSheet.create({
 
   header:{
-    width: '100%',
-    height: '17%',
+    flex:1,
     justifyContent:'center', 
     alignItems:'center',
-    flexDirection: 'row',
-    backgroundColor: 'white'
+    flexDirection: 'column',
+    marginTop:20
   },
 
   tituloHeader:{
     fontFamily:global.fontFamily,
-    fontSize:30
+    fontSize:18,
+    marginTop:10
   },
+
 });
 
