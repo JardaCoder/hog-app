@@ -71,9 +71,12 @@ export default function Perfil() {
           
           <Text style={[stylesDefault.tituloMaior, style.titulo]}>Atalhos:</Text>
           <ScrollView horizontal={true} style={style.scrollAtalhos}>
-            <CardInformativo icon={<MaterialIcons  name="dynamic-feed" size={40} color="black" />} titulo="Minhas postagens"/>
-            <CardInformativo icon={<Entypo name="book" size={40} color="black" />} titulo= "TechWiki" onPress={() => util.abrirLink("http://techwiki.souhibrido.com.br/")}/>
-            <CardInformativo icon={<FontAwesome5 name="network-wired" size={40} color="black" />}  titulo= "Vagas" onPress={() => util.abrirLink("https://www.hibrido.com.br/vagas/")}/>
+            <CardInformativo icon={<MaterialIcons  name="dynamic-feed" size={40} color="black" />}
+              titulo="Minhas postagens" onPress={() => navigation.navigate('Post', {tipo:'indicacao'})}/>
+            <CardInformativo icon={<Entypo name="book" size={40} color="black" />} 
+              titulo= "TechWiki" onPress={() => util.abrirLink("http://techwiki.souhibrido.com.br/")}/>
+            <CardInformativo icon={<FontAwesome5 name="network-wired" size={40} color="black" />} 
+              titulo= "Vagas" onPress={() => util.abrirLink("https://www.hibrido.com.br/vagas/")}/>
           </ScrollView>
           <View style={style.navegarParaRank}>
             <TouchableOpacity  onPress={() => navegarParaRank()}>

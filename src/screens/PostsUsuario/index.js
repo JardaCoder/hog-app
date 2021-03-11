@@ -14,7 +14,7 @@ import ListVazia from './../../components/ListVazia/header';
 import api from '../../services/api';
 import { useFocusEffect } from '@react-navigation/native';
 
-export default function Post({route}) {
+export default function PostsUsuario({route}) {
 
   const tipo = route.params?.tipo == 'indicacao' ? 1 : 0;
   const [userState, dispatch] = useUserContext();
