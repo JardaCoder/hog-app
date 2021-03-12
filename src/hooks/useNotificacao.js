@@ -40,7 +40,6 @@ const getExpoToken = async () =>{
 }
 
 const buscarNotificacoes =  async (id) => {
-    
     await api.post('/api/notificacao/filtrar?buscarTodos=true&sortField=id&sortDirection=DESC', {usuarioId:id}).then((response) => {
         if(response.data)
           dispatch({
@@ -67,8 +66,6 @@ const visualizarTodas = async (id) => {
         console.log(error)
     })
 }
-
-
 
    return[getExpoToken, buscarNotificacoes, setListeners, visualizarTodas]
 }

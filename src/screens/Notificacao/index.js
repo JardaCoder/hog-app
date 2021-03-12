@@ -30,7 +30,8 @@ export default function Notificacao( ) {
   }, 1000);
 
   const Item = ({ item, onPress}) => (
-    <TouchableOpacity onPress={onPress} style={[style.item, stylesDefault.boxShadow,  ]}>
+    <TouchableOpacity disabled={true} onPress={onPress} style={[style.item,
+      stylesDefault.boxShadow, item.seVisualizada == 'NAO' ? null : null]}>
        <View style={[style.containerTexto]}>
           <Text style={stylesDefault.textoPadraoBold}>{item.titulo}</Text>
           <Text style={stylesDefault.textoPadrao}>{item.corpo}</Text>
@@ -61,7 +62,7 @@ export default function Notificacao( ) {
         keyExtractor={(item, index) => index.toString()}
         // onEndReached={() => alert('Oi')}
         // onEndReachedThreshold={0.1}
-        onRefresh={buscarNotificacoes}
+        onRefresh={() => updateNotificacoes()}
         ListEmptyComponent={<ListVazia titulo="Nenhuma notificação encontrada"/>}
         refreshing={false}
         ListFooterComponent={() =>(
