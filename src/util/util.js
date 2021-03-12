@@ -6,8 +6,13 @@ const abrirLink = (link) => {
       Linking.openURL(link)
 }
 
+
+
 const Util = {
     abrirLink: abrirLink
 }
+
+
+
 
 export default Util;

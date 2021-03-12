@@ -17,10 +17,10 @@ function PostException(message) {
     this.name = "PostException";
 }
 
-const buscarPosts = async (filtro) => {
+const buscarPosts = async (filtro, sortField) => {
     let posts;
 
-    await api.post('/api/post/filtrar?buscarTodos=true', filtro || {}).then((response) => {
+    await api.post('/api/post/filtrar?buscarTodos=true&sortDirection=DESC&sortField=' + sortField , filtro ).then((response) => {
         posts = response.data;
     }).catch((error) => {
         console.log(error)

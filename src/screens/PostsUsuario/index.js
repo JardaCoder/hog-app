@@ -43,7 +43,7 @@ export default function PostsUsuario({route}) {
 
   const buscarTodosPosts = async () => {
     setLoading(true);
-    let dados = await buscarPosts({});
+    let dados = await buscarPosts(filtro);
     setDados(dados); 
     setLoading(false);
   }

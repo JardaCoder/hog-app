@@ -25,8 +25,12 @@ export default function Post({route}) {
   const [buscarPosts] = usePost();
   const [dados, setDados] = useState([]);
   const [filter, setFilter] = useState(tipo)
-  const filtro = {tipoPost:'PROJETO'};
+  const [filtro, setFiltro] = useState({tipoPost:'PROJETO', situacaoProjeto:null, categoriaId: null});
   const [categorias, setCategorias] = useState([]);
+  const [paginacao, setPaginacao] = useState({
+    sortField:'inclusao'
+  })
+  const [categoriaId, setCategoriaId] = useState(null);
 
   const navigation = useNavigation();
 
@@ -43,7 +47,9 @@ export default function Post({route}) {
 
   const buscarTodosPosts = async () => {
     setLoading(true);
-    let dados = await buscarPosts({});
+    filtro.categoriaId = categoriaId;
+    console.log(filtro)
+    let dados = await buscarPosts(filtro, paginacao.sortField);
     setDados(dados); 
     setLoading(false);
   }
@@ -66,19 +72,41 @@ export default function Post({route}) {
     ref.current.hide();
   }
 
-  const onHiddenMenu = () =>{
-    buscarTodosPosts();
-  }
+  // const onHiddenMenu = () =>{
+  //   buscarTodosPosts();
+  // }
   
   const mudarFilterState = (state) =>{
+
+    setFiltro({...filtro,
+      tipoPost: state == 1 ? 'INDICACAO' : 'PROJETO',
+      situacaoProjeto:state == 2 ? 'ANDAMENTO' : null,
+    })
     setFilter(state);
-    buscarTodosPosts();
   }
+
+  const ordenarPorMaisCurtidos = () => {
+   let newDados = dados.sort(function (a, b) {
+      if (a.quantidadeUp > b.quantidadeUp) {
+        return 1;
+      }
+      if (a.quantidadeUp < b.quantidadeUp) {
+        return -1;
+      }
+      return 0;
+    });
+
+    console.log(newDados)
+
+    setDados(newDados);
+
+  }
+
 
   const renderCategoria = useCallback(
     () => {
       return categorias.map((item, index) => (
-        <MenuItem key={index} onPress={() =>{hideMenu(menuFiltro); filtro.categoriaId = item.id}}>{item.nome}</MenuItem>
+        <MenuItem key={index} onPress={() =>{hideMenu(menuFiltro); setCategoriaId(item.id)}}>{item.nome}</MenuItem>
       ));
     },
     [categorias],
@@ -88,6 +116,9 @@ export default function Post({route}) {
     <TouchableOpacity onPress={onPress} style={[style.item, stylesDefault.boxShadow,  ]}>
           <ImageBackground source={{uri : item.imagem?.urlImagem}} style={style.image} resizeMode="cover">
               <Text style={[stylesDefault.textoPadrao, style.textoCard]}>{item.titulo}</Text>
+              {item.tipoPost == 'INDICACAO' &&(
+                 <Text style={[style.textoCategoria, {backgroundColor: global.red}]}>Indicação</Text>
+              )}
               <Text style={[style.textoCategoria, {backgroundColor: item.categoria?.hexaCor}]}>{item.categoria?.nome}</Text>
           </ImageBackground>
        <View style={[style.footerCard]}>
@@ -131,17 +162,16 @@ export default function Post({route}) {
     }, [])
   )
 
-
-  // useEffect(() => {
-  //   filtro.tipoPost = filter == 1 ?  'INDICACAO' :'PROJETO' ;
-  // }, [filter])
+  useEffect(() => {
+    buscarTodosPosts();
+  }, [filter, categoriaId])
 
   useEffect(() => {
     buscarCategorias();
   }, [])
 
   return (
-    // loading ? <Loading/> :
+
     <SafeAreaView style={[stylesDefault.container]}>
       <Header titulo={"Postagens"}></Header>
       <View style={style.container}>
@@ -181,7 +211,6 @@ export default function Post({route}) {
                 {filter != 1 &&(
                   <Menu
                     ref={menuFiltro}
-                    onHidden={onHiddenMenu}
                     button={<FontAwesome onPress={() => showMenu(menuFiltro)} name="filter" size={24} color="black" />}
                   >
                     <MenuItem onPress={() => hideMenu(menuFiltro)} disabled>Categoria</MenuItem>
@@ -192,13 +221,12 @@ export default function Post({route}) {
 
                 <Menu
                   ref={menu}
-                  onHidden={onHiddenMenu}
                   button={<FontAwesome5  onPress={() => showMenu(menu)} name="sort-amount-up-alt" size={24} color="black" />}
                 >
                   <MenuItem onPress={() => hideMenu(menu)} disabled>Ordenar por</MenuItem>
                   <MenuDivider />
-                  <MenuItem onPress={() => hideMenu(menu)}>Mais recente</MenuItem>
-                  <MenuItem onPress={() => hideMenu(menu)} >Mais curtido</MenuItem>
+                  <MenuItem onPress={() => {hideMenu(menu)}}>Mais recente</MenuItem>
+                  <MenuItem onPress={() => {hideMenu(menu); ordenarPorMaisCurtidos();}} >Mais curtido</MenuItem>
                 </Menu>
               </View>
             </View>
