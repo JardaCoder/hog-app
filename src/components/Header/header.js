@@ -1,10 +1,22 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { AntDesign  } from '@expo/vector-icons'; 
+import { useNavigation } from '@react-navigation/core';
+import voltar from '../../assets/voltar.png'
 
 
 export default function Header(props) {
+
+  const navigation = useNavigation();
+
   return (
     <View style={style.header}>
+      {props.pop &&(
+        <TouchableOpacity onPress={() => navigation.pop()} style={style.botaoVoltar}>
+          <Image style={style.imagem} source={voltar}></Image>
+        </TouchableOpacity>
+      )}
+      
       <Text style={style.tituloHeader}>{props.titulo}</Text>
     </View>
   );
@@ -27,5 +39,21 @@ const style = StyleSheet.create({
     fontFamily:global.fontFamily,
     fontSize:30
   },
+
+  botaoVoltar:{
+    width:40,
+    height:40,
+    borderRadius:55,
+    justifyContent:'center',
+    alignItems:'center',
+    position:'absolute',
+    left:30
+  },
+
+  imagem:{
+    width:30,
+    height:30,
+    resizeMode:'contain'
+  }
 });
 

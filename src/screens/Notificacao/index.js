@@ -24,10 +24,10 @@ export default function Notificacao( ) {
     await visualizarTodas(userState.id);
     await buscarNotificacoes(userState.id);
   }
-
+  
   setTimeout(() => {
     setLoading(false);
-  }, 1000);
+  }, 500);
 
   const Item = ({ item, onPress}) => (
     <TouchableOpacity disabled={true} onPress={onPress} style={[style.item,
@@ -40,7 +40,8 @@ export default function Notificacao( ) {
     </TouchableOpacity>
   );
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item, index }) => {
+   
     return (
       <Item
         item={item}
@@ -57,11 +58,9 @@ export default function Notificacao( ) {
       <FlatList
         style={style.lista}
         showsVerticalScrollIndicator={false}
-        data={notificationState.notificacoes}
+        data={notificationState.notificacoes ? notificationState.notificacoes : []}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
-        // onEndReached={() => alert('Oi')}
-        // onEndReachedThreshold={0.1}
         onRefresh={() => updateNotificacoes()}
         ListEmptyComponent={<ListVazia titulo="Nenhuma notificação encontrada"/>}
         refreshing={false}

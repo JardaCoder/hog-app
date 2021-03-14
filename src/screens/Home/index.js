@@ -9,7 +9,9 @@ import CardInformativo from "../../components/CardInformativo";
 import { useNavigation } from "@react-navigation/core";
 import useUsuario from './../../hooks/useUsuario';
 import { useFocusEffect } from '@react-navigation/native';
-import {MaterialIcons, FontAwesome5, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
+import projetos from '../../assets/projetos.png'
+import hibrido from '../../assets/hibriBranco.png'
+import estrela from '../../assets/estrela.png'
 
 
 export default function Home() {
@@ -73,9 +75,12 @@ export default function Home() {
         </View>
         <Text style={[stylesDefault.tituloMaior, style.titulo]}>Categorias:</Text>
         <ScrollView horizontal={true} style={style.scrollAtalhos}>
-            <CardInformativo icon={<MaterialIcons name="message" size={40} color="#fff" />}  color={global.red} titulo="Recados"/>
-            <CardInformativo icon={<MaterialIcons  name="dynamic-feed" size={40} color="#fff" />}  onPress={() => navigation.navigate('Post')} color={global.blue} titulo= "Projetos"/>
-            <CardInformativo icon={<MaterialCommunityIcons name="hand-pointing-right" size={40} color="#fff" />} onPress={() => navigation.navigate('Post', {tipo:'indicacao'})} color={global.blue} titulo= "Indicações"/>
+            <CardInformativo icon={<Image source={hibrido} style={stylesDefault.iconeCard} resizeMode="contain"/>} quantidadePost={home?.quantidadeRecados || '0'}
+             onPress={() => navigation.push('Post', {tipo:'recado', pop:true})} color={global.red} titulo="Recados"/>
+            <CardInformativo icon={<Image source={projetos} style={stylesDefault.iconeCard} resizeMode="contain"/>}  quantidadePost={home?.quantidadeProjetos || '0'}
+              onPress={() => navigation.push('Post', {pop:true})} color={global.blue} titulo= "Projetos"/>
+            <CardInformativo icon={<Image source={estrela} style={stylesDefault.iconeCard} resizeMode="contain"/>}  quantidadePost={home?.quantidadeIdeias || '0'}
+             onPress={() => navigation.push('Post', {tipo:'indicacao', pop:true})} color={global.blue} titulo= "Indicações"/>
     
         </ScrollView>
 

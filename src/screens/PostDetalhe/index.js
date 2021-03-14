@@ -42,7 +42,7 @@ export default function PostDetalhe({navigation, route}) {
 
   return (
     <SafeAreaView style={[stylesDefault.container]}>
-      <Header titulo={"Detalhes do post"}></Header>
+      <Header titulo={"Detalhes do post"} pop={true}></Header>
         <ScrollView showsVerticalScrollIndicator={false} style={stylesDefault.scrollView}>
           <View style={style.container}>
             <ImageBackground source={{uri : post.imagem?.urlImagem}} style={style.image} resizeMode="cover">

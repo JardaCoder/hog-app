@@ -38,11 +38,6 @@ const googleLogin = async () => {
     const result = await Google.logInAsync(config);
     
     if (result.type === 'success') {
-      if(!result.user.email.includes('@hibrido')){
-        let accessToken = result.accessToken;
-        Alert.alert('Atenção', 'O login com esse domínio de email não está disponível');
-        await Google.logOutAsync({accessToken, ...config})
-      }else{
       try {
       let usuario =  await buscarOuCriarUsuario(result.user, expoPushToken );
         buscarNotificacoes(usuario.id);
@@ -53,8 +48,6 @@ const googleLogin = async () => {
       } catch (error) {
         console.log(error)
         Alert.alert("Atenção", "Houve um problema ao fazer o login");
-      }
-
       }
     }
   } catch (e) {

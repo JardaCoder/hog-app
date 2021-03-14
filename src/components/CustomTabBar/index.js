@@ -14,14 +14,14 @@ export default function CustomTabBar({state}){
     const [showTab, setShowTab] = useState(true)
     
     useEffect(() => {
-        // Keyboard.addListener("keyboardDidShow", () =>{
-        //     setShowTab(false);
-        // } )
-        // Keyboard.addListener("keyboardDidHide", () => setShowTab(true))
-        // return () => {
-        //     Keyboard.removeListener('keyboardDidShow');
-        //     Keyboard.removeListener('keyboardDidHide')
-        // }
+        Keyboard.addListener("keyboardDidShow", () =>{
+            setShowTab(false);
+        } )
+        Keyboard.addListener("keyboardDidHide", () => setShowTab(true))
+        return () => {
+            Keyboard.removeListener('keyboardDidShow');
+            Keyboard.removeListener('keyboardDidHide')
+        }
     }, [])
 
     const navigateTo = (screen) =>{
@@ -40,14 +40,14 @@ export default function CustomTabBar({state}){
             <TouchableOpacity style={[style.tabItem]} onPress={() => navigateTo('Home')}>
                 <Ionicons style={{opacity: state.index == 0 ? 1 : 0.7}} name="home-outline" size={24} color="white" />
                 {state.index == 0 &&(
-                     <Text style={style.label}>Home</Text>
+                     <Text style={style.label}>Início</Text>
                 )}
             </TouchableOpacity>
             
             <TouchableOpacity style={style.tabItem} onPress={() => navigateTo('Post')}>
                 <MaterialIcons style={{opacity: state.index == 1 ? 1 : 0.7}} name="dynamic-feed" size={24} color="white" />
                 {state.index == 1 &&(
-                     <Text style={style.label}>Posts</Text>
+                     <Text style={style.label}>Explorar</Text>
                 )}
             </TouchableOpacity>
 
@@ -56,10 +56,13 @@ export default function CustomTabBar({state}){
             </TouchableOpacity>
 
             <TouchableOpacity onLayout={(event) => {onLayout(event)}} style={[style.tabItem]} onPress={() =>navigateTo('Notificacao')}>
-                <View style={[style.badge,
-                     {right: itemWidth ? (itemWidth / 100) * 27 : 0, top: state.index == 3 ? 10 : 16 }]}>
-                         <Text style={style.label}>{notificationState.quantidade || 0}</Text>
-                </View>
+               
+               {notificationState.quantidade && notificationState.quantidade > 0 ?
+                    <View style={[style.badge,
+                        {right: itemWidth ? (itemWidth / 100) * 27 : 0, top: state.index == 3 ? 10 : 16 }]}>
+                            <Text style={style.label}>{notificationState.quantidade || 0}</Text>
+                    </View> : null
+                }
                 <Ionicons style={{opacity: state.index == 3 ? 1 : 0.7}} name="notifications-outline" size={24} color="white" />
                 {state.index == 3 &&(
                      <Text style={style.label}>Notificações</Text>

@@ -13,12 +13,19 @@ import api from './../../services/api';
 import { useNavigation } from '@react-navigation/core';
 
 
-export default function NovoPost() {
+export default function NovoPost({route}) {
+
+  const editando = route.params?.post ? true : false;
+  var postEditavel = null;
+  if(editando){
+    postEditavel = route.params?.post;
+  }
+
 
   const [userState, dispatch] = useUserContext();
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(editando ? postEditavel.imagem?.urlImagem : '');
   const [imageBytes, setImageBytes] = useState(null);
-  const [post, setPost] = useState({})
+  const [post, setPost] = useState(editando ? postEditavel : {})
   const [tipoPost, setTipoPost] = useState(null);
   const [categoriaId, setCategoriaId] = useState(null);
   const [categorias, setCategorias] = useState([]);
@@ -27,6 +34,10 @@ export default function NovoPost() {
   const navigation = useNavigation();
 
   const resetCampos = () =>{
+    if(editando){
+      navigation.pop();
+      return;
+    }
     setPost({});
     setImage(null);
     setImageBytes(null);
@@ -79,7 +90,11 @@ export default function NovoPost() {
 
   setLoading(true);
   try {
-    post.imagem = {bytes:imageBytes}
+    if(editando){
+      post.imagem.bytes = imageBytes;
+    }else{
+      post.imagem = {bytes:imageBytes}
+    }
     post.usuarioId = userState.id;
    
     await api.post('/api/post/', post).then(result => {
@@ -113,7 +128,7 @@ export default function NovoPost() {
 
   return (
     <SafeAreaView style={[stylesDefault.container]}>
-       <Header titulo={"Criar postagem"}/>
+       <Header titulo={editando ? "Editar postagem":"Criar postagem"} pop={editando}/>
       <ScrollView showsVerticalScrollIndicator={false} style={stylesDefault.scrollView}>
         <View style={style.container}>
           <View style={style.containerImagem}>

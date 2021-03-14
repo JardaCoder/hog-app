@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
         bottom:0,
         margin:4,
         padding:2,
+        paddingHorizontal:8,
         fontSize:10
     },
     quantidadeUpDown:{
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
         color:'#fff'
     }, 
     itemHeader:{
-        width: Dimensions.get('screen').width / 3.1,
+        width: Dimensions.get('screen').width / 2.1,
         alignItems:'center',
         justifyContent:'center',
         borderBottomWidth: 2

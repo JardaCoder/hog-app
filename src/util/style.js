@@ -39,13 +39,13 @@ const stylesDefault = StyleSheet.create({
 
     },
     textoPadraoBold:{
-      fontSize: 16,
+      fontSize: 17,
       fontFamily: global.bold,
 
     },
     textoPequenoRed:{
       fontFamily:global.fontFamily,
-      fontSize:10,
+      fontSize:14,
       color:global.red
     },
     boxShadow: {
@@ -100,7 +100,21 @@ const stylesDefault = StyleSheet.create({
       elevation: 5,
       textAlignVertical:'top',
       marginLeft: '2.5%'
+  },
+  iconeCard:{
+    width: 40,
+    height: 40
+  },
+
+  quantidade:{
+    width: 'auto',
+    padding: 2,
+    paddingHorizontal:8,
+    borderRadius:5,
+    backgroundColor:'rgba(0, 0, 0, 0.3)',
+    
   }
+  
 
 
   });

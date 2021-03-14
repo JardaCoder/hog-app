@@ -20,15 +20,15 @@ export default function PostsUsuario({route}) {
   const [userState, dispatch] = useUserContext();
   const [loading, setLoading] = useState(false);
   const [update, setUpdate] = useState(0);
-  const menu = useRef(null);
-  const menuFiltro = useRef(null);
   const [buscarPosts] = usePost();
   const [dados, setDados] = useState([]);
-  const [filter, setFilter] = useState(tipo)
-  const filtro = {tipoPost:'PROJETO'};
+  const [filter, setFilter] = useState(0)
+  const [filtro, setFiltro] = useState({usuarioDonoId: userState.id, tipoPost:'PROJETO'});
   const [categorias, setCategorias] = useState([]);
 
   const navigation = useNavigation();
+
+ 
 
   const buscarCategorias = async () =>{
     await api.get('/api/categoria/todos').then(result => {
@@ -37,13 +37,22 @@ export default function PostsUsuario({route}) {
   }
 
 
-  const verDetalhes = (post) => {
-    navigation.push("PostDetalhe", {post:post})
+  const editarPost = (post) => {
+    navigation.push("EditarPost", {post:post})
   }
 
   const buscarTodosPosts = async () => {
+ 
+    if(loading){
+      return;
+    }
+    //filtro.tipoPost = filter == 1 ? 'INDICACAO' : 'PROJETO'
+    console.log(filtro)
+    if(filter == 1){
+      filtro.tipoPost = 'INDICACAO'
+    }
     setLoading(true);
-    let dados = await buscarPosts(filtro);
+    let dados = await buscarPosts(filtro, 'inclusao');
     setDados(dados); 
     setLoading(false);
   }
@@ -58,50 +67,33 @@ export default function PostsUsuario({route}) {
     setUpdate(update + 1);
   }
 
-  const showMenu = (ref) =>{
-    ref.current.show();
-  }
-
-  const hideMenu = (ref) =>{
-    ref.current.hide();
-  }
-
-  const onHiddenMenu = () =>{
+  const refresh = (tipo) =>{
+    filtro.tipoPost = tipo;
+    setDados([]);
     buscarTodosPosts();
   }
-  
-  const mudarFilterState = (state) =>{
-    setFilter(state);
-    buscarTodosPosts();
-  }
-
-  const renderCategoria = useCallback(
-    () => {
-      return categorias.map((item, index) => (
-        <MenuItem key={index} onPress={() =>{hideMenu(menuFiltro); filtro.categoriaId = item.id}}>{item.nome}</MenuItem>
-      ));
-    },
-    [categorias],
-  )
 
   const Item = ({ item, onPress, index}) => (
     <TouchableOpacity onPress={onPress} style={[style.item, stylesDefault.boxShadow,  ]}>
           <ImageBackground source={{uri : item.imagem?.urlImagem}} style={style.image} resizeMode="cover">
               <Text style={[stylesDefault.textoPadrao, style.textoCard]}>{item.titulo}</Text>
+              {item.tipoPost == 'INDICACAO' &&(
+                 <Text style={[style.textoCategoria, {backgroundColor: global.red}]}>Indicação</Text>
+              )}
               <Text style={[style.textoCategoria, {backgroundColor: item.categoria?.hexaCor}]}>{item.categoria?.nome}</Text>
           </ImageBackground>
        <View style={[style.footerCard]}>
-          <Image source={{uri:userState.fotoUrl}} style={style.imagemUsuario}></Image>
+          <Image source={{uri:item.usuario.fotoUrl}} style={style.imagemUsuario}></Image>
           <View style={style.containerTexto}>
               <Text style={stylesDefault.textoPadraoBold}>{item.usuario?.nome}</Text>
               <Text style={stylesDefault.textoPequenoRed}>{item.usuario?.pontosSplit} pontos</Text>
           </View>
           <View style={style.botoes}>
-          <TouchableOpacity style={style.up} onPress={() => upCard(item, index)}>
+          <TouchableOpacity disabled={true} style={style.up} onPress={() => upCard(item, index)}>
               <AntDesign name="up" size={24} color="#fff" />
               <Text style={style.quantidadeUpDown}>{item.quantidadeUp || 0}</Text>
           </TouchableOpacity>
-          <TouchableOpacity  style={style.up} onPress={() => downCard(item, index)}>
+          <TouchableOpacity disabled={true}  style={style.up} onPress={() => downCard(item, index)}>
               <Text style={style.quantidadeUpDown}>{item.quantidadeDown || 0}</Text>
               <AntDesign name="down" size={24} color="#fff" />
           </TouchableOpacity>
@@ -116,7 +108,7 @@ export default function PostsUsuario({route}) {
       return (
         <Item
           item={item}
-          onPress={() =>verDetalhes(item)}
+          onPress={() =>editarPost(item)}
           index={index}
         />
       );
@@ -126,24 +118,20 @@ export default function PostsUsuario({route}) {
 
   useFocusEffect(
     React.useCallback(() => {
+      setDados([]);
       buscarTodosPosts()
-    
     }, [])
   )
 
 
-  // useEffect(() => {
-  //   filtro.tipoPost = filter == 1 ?  'INDICACAO' :'PROJETO' ;
-  // }, [filter])
-
   useEffect(() => {
+    buscarTodosPosts()
     buscarCategorias();
   }, [])
 
   return (
-    // loading ? <Loading/> :
     <SafeAreaView style={[stylesDefault.container]}>
-      <Header titulo={"Postagens"}></Header>
+      <Header titulo={"Minhas idéais"} pop={true}></Header>
       <View style={style.container}>
         <VirtualizedList
           style={style.lista}
@@ -164,43 +152,14 @@ export default function PostsUsuario({route}) {
             <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
               <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{width: '100%', flexDirection:'row', height:30, marginBottom:10}}>
                 <TouchableOpacity style={[style.itemHeader,
-                   {borderBottomColor:filter == 0 ? global.lightBlue : 'transparent'}]} onPress={() => mudarFilterState(0)}>
+                   {borderBottomColor:filtro.tipoPost == 'PROJETO' ? global.lightBlue : 'transparent'}]} onPress={() =>{refresh('PROJETO');}}>
                   <Text style={[stylesDefault.textoPadrao, {fontSize:14}]}>Projetos</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[style.itemHeader, 
-                  {borderBottomColor:filter == 2 ? global.lightBlue : 'transparent'}]}  onPress={() => mudarFilterState(2)}>
-                  <Text style={[stylesDefault.textoPadrao, {fontSize:14}]}>Em andamento</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[style.itemHeader, 
-                  {borderBottomColor:filter == 1 ? global.lightBlue : 'transparent'}]}  onPress={() => mudarFilterState(1)}>
+                  {borderBottomColor:filtro.tipoPost == 'INDICACAO' ? global.lightBlue : 'transparent'}]}  onPress={() => {refresh('INDICACAO');}}>
                   <Text style={[stylesDefault.textoPadrao, {fontSize:14}]}>Indicações</Text>
                 </TouchableOpacity>
               </ScrollView>
-
-              <View style={[style.containerFiltros, {justifyContent: filter != 1 ? 'space-between' : 'flex-end'}]}>
-                {filter != 1 &&(
-                  <Menu
-                    ref={menuFiltro}
-                    onHidden={onHiddenMenu}
-                    button={<FontAwesome onPress={() => showMenu(menuFiltro)} name="filter" size={24} color="black" />}
-                  >
-                    <MenuItem onPress={() => hideMenu(menuFiltro)} disabled>Categoria</MenuItem>
-                    <MenuDivider />
-                    {renderCategoria()}
-                  </Menu>
-                )}
-
-                <Menu
-                  ref={menu}
-                  onHidden={onHiddenMenu}
-                  button={<FontAwesome5  onPress={() => showMenu(menu)} name="sort-amount-up-alt" size={24} color="black" />}
-                >
-                  <MenuItem onPress={() => hideMenu(menu)} disabled>Ordenar por</MenuItem>
-                  <MenuDivider />
-                  <MenuItem onPress={() => hideMenu(menu)}>Mais recente</MenuItem>
-                  <MenuItem onPress={() => hideMenu(menu)} >Mais curtido</MenuItem>
-                </Menu>
-              </View>
             </View>
           )}
           ListFooterComponent={() =>(
