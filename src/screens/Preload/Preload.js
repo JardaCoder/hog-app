@@ -6,12 +6,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useUserContext } from "../../contexts/UserContext";
 import * as Notifications from 'expo-notifications';
 import useNotificacao from './../../hooks/useNotificacao';
+import useUsuario from './../../hooks/useUsuario';
 
 export default function App() {
 
     const navigation = useNavigation();
     const [userState, dispatch] = useUserContext();
     const [getExpoToken, buscarNotificacoes, setListeners] = useNotificacao();
+    const [buscarOuCriarUsuario, salvarAlteracoesUsuario, buscarDadosHome] = useUsuario();
+    
 
     Notifications.setNotificationHandler({
       handleNotification: async () => ({
@@ -22,9 +25,13 @@ export default function App() {
     })
 
     const verificarUsuario = async () => {
+      let expoPushToken = await getExpoToken();
      ///await AsyncStorage.clear();
       let usuario = JSON.parse(await AsyncStorage.getItem('usuario'));
       if(usuario && usuario.id){
+        usuario.expoPushToken = expoPushToken;
+        salvarAlteracoesUsuario(usuario)
+        
         dispatch({
           type: 'setUsuario',
           usuario: usuario

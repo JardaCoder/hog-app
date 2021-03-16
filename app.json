@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "hog-app",
-    "slug": "hog-app",
-    "version": "1.0.0",
+    "name": "HoG",
+    "slug": "HoG",
+    "version": "1.0.1",
     "orientation": "portrait",
     "splash": {
       "image": "./src/assets/splash.png",
       "resizeMode": "cover",
-      "backgroundColor": "#16394d"
+      "backgroundColor": "#1F2F3F"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0,
+      "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
       "**/*"
@@ -23,12 +23,16 @@
       "package": "com.jardacoder.hogapp",
       "googleServicesFile" : "./google-services.json",
       "useNextNotificationsApi": true,
+      "icon": "./src/assets/icon.png",
       "config": {
         "googleSignIn": {
           "apiKey": "AIzaSyCq7rSBxydgp83VYkczNGqVWjO27tdF6_I",
           "certificateHash": "28ADF23EEDD16C0CECDDD617495488FD98FD70C3"
         }
       }
+    },
+    "notification": {
+      "icon": "./src/assets/notification.png"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"

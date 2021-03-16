@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Ranking  from '../screens/Ranking/index'
 import Perfil from './../screens/Perfil/index';
 import PostsUsuario from "../screens/PostsUsuario";
+import NovoPost from './../screens/NovoPost/index';
 
 
 const Stack = createStackNavigator();
@@ -14,6 +15,7 @@ export default function PerfilStack() {
         <Stack.Screen name="Perfil" component={Perfil} />
         <Stack.Screen name="Ranking" component={Ranking} />
         <Stack.Screen name="PostsUsuario" component={PostsUsuario} />
+        <Stack.Screen name="EditarPost" component={NovoPost} />
       </Stack.Navigator>
     
   );

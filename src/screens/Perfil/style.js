@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
     titulo:{
         marginTop:20,
         textAlign:'left',
-        width:'100%'
+        width:'100%',
+        marginBottom:20
     },
     scrollAtalhos:{
         width: '100%',

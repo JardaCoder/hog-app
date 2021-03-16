@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { View, Text, Image, SafeAreaView, FlatList, TouchableOpacity, StyleSheet, StatusBar } from "react-native";
+import { View, Text, Image, SafeAreaView, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
 import { useUserContext } from "../../contexts/UserContext";
 import stylesDefault from '../../util/style';
 import Header from '../../components/Header/header'
@@ -63,7 +63,7 @@ export default function Notificacao(props) {
   return (
     loading ? <Loading/> :
     <SafeAreaView style={[stylesDefault.container]}>
-       <Header titulo={"Ranking"}/>
+       <Header titulo={"Ranking"} pop={true}/>
       <View style={style.container}>
       <FlatList
         style={style.lista}
@@ -71,6 +71,12 @@ export default function Notificacao(props) {
         data={usuarios}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
+        ListFooterComponent={() =>(
+          loading ? 
+            <ActivityIndicator size="large" color={global.red}></ActivityIndicator>
+            : null
+        )}
+        ListFooterComponentStyle={{height:180, marginTop:10}}
       
       />
       </View>

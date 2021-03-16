@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
         marginHorizontal:15,
         justifyContent: 'flex-start',
         alignItems:'center',
-        marginBottom:150
     },
     image:{
         width: 50,

@@ -9,8 +9,8 @@ import * as SplashScreen from 'expo-splash-screen';
 
 export default function App() {
   const [loaded] = useFonts({
-    popins: require('./src/assets/fonts/Poppins-Medium.ttf'),
-    bold: require('./src/assets/fonts/Poppins-Bold.ttf'),
+    popins: require('./src/assets/fonts/SpaceGrotesk-Medium.ttf'),
+    bold: require('./src/assets/fonts/SpaceGrotesk-Bold.ttf'),
   });
 
   const hideSplash = async () =>{

@@ -45,11 +45,15 @@ const styles = StyleSheet.create({
         alignItems:'flex-start'
     },
     textoCard:{
-        width:'80%',
+        width:'auto',
         marginTop:20,
         marginLeft:20,
         color:'#fff',
         textAlign:'left',
+        backgroundColor:'rgba(0, 0, 0, 0.4)',
+        borderRadius:5,
+        padding: 2,
+        paddingHorizontal:5
       
     },
     imagemUsuario:{
@@ -81,7 +85,8 @@ const styles = StyleSheet.create({
         bottom:0,
         margin:4,
         padding:2,
-        fontSize:10
+        paddingHorizontal:8,
+        fontSize:10,
     },
     quantidadeUpDown:{
         fontFamily:global.fontFamily,

@@ -12,6 +12,9 @@ import { useNavigation } from "@react-navigation/core";
 import useUsuario from './../../hooks/useUsuario';
 import { useFocusEffect } from '@react-navigation/native';
 import {MaterialIcons, FontAwesome5, Entypo  } from '@expo/vector-icons';
+import vagas from '../../assets/vagas.png'
+import techwiki from '../../assets/techwiki.png'
+import meupost from '../../assets/meusposts.png'
 
 export default function Perfil() {
 
@@ -71,11 +74,11 @@ export default function Perfil() {
           
           <Text style={[stylesDefault.tituloMaior, style.titulo]}>Atalhos:</Text>
           <ScrollView horizontal={true} style={style.scrollAtalhos}>
-            <CardInformativo icon={<MaterialIcons  name="dynamic-feed" size={40} color="black" />}
-              titulo="Minhas postagens" onPress={() => navigation.navigate('Post', {tipo:'indicacao'})}/>
-            <CardInformativo icon={<Entypo name="book" size={40} color="black" />} 
+            <CardInformativo icon={<Image source={meupost} style={stylesDefault.iconeCard} resizeMode="contain"/>}
+              titulo="Minhas idéias" onPress={() => navigation.push('PostsUsuario', {})}/>
+            <CardInformativo icon={<Image source={techwiki} style={stylesDefault.iconeCard} resizeMode="contain"/>} 
               titulo= "TechWiki" onPress={() => util.abrirLink("http://techwiki.souhibrido.com.br/")}/>
-            <CardInformativo icon={<FontAwesome5 name="network-wired" size={40} color="black" />} 
+            <CardInformativo icon={<Image source={vagas} style={stylesDefault.iconeCard} resizeMode="contain"/>} 
               titulo= "Vagas" onPress={() => util.abrirLink("https://www.hibrido.com.br/vagas/")}/>
           </ScrollView>
           <View style={style.navegarParaRank}>
