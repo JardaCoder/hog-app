@@ -1,14 +1,13 @@
-import React from "react";
+import React, {memo} from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { AntDesign  } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/core';
 import voltar from '../../assets/voltar.png'
 
-
-export default function Header(props) {
+ function Header(props) {
 
   const navigation = useNavigation();
-
+  
   return (
     <View style={style.header}>
       {props.pop &&(
@@ -22,7 +21,7 @@ export default function Header(props) {
   );
 }
 
-
+export default memo(Header)
 
 const style = StyleSheet.create({
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from "react";
+import React, {useEffect, useState, useCallback, useMemo} from "react";
 import { View, Text, Image, SafeAreaView, ScrollView} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useUserContext } from "../../contexts/UserContext";
@@ -20,6 +20,7 @@ export default function Home() {
   const navigation = useNavigation();
   const [buscarOuCriarUsuario, salvarAlteracoesUsuario, buscarDadosHome] = useUsuario();
   const [ranking, setRanking] = useState([]);
+  const [state, setState] = useState(0);
   const [home, setHome] = useState({
     voce:{}
   })
@@ -35,14 +36,14 @@ export default function Home() {
     navigation.push('Ranking')
   }
 
-  const rankingMap = () =>{
+  const rankingMap = useMemo(() =>{
     return ranking.map((item, index) =>{
       return(
         <CardPosicao key={index} cor={global.blue} usuario={item} index={index} 
           texto={item.id == home.voce.id ? '(Você)' : ""}/>
       )
     })
-  }
+  }, [ranking])
 
 
   useFocusEffect(useCallback(() => {
@@ -66,7 +67,7 @@ export default function Home() {
               <CardPosicao cor={global.red} usuario={home.voce} posicao={home.voce.posicao} texto={'(Você)'}/>
           )}
           {
-            rankingMap()
+            rankingMap
           }  
         <View style={style.navegarParaRank}>
           <TouchableOpacity  onPress={() => navegarParaRank()}>

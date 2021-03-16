@@ -1,5 +1,5 @@
 
-import React, {useEffect, useState, useRef, useCallback} from "react";
+import React, {useEffect, useState, useRef, useCallback, useMemo} from "react";
 import { View, Text, Image, SafeAreaView, FlatList, ActivityIndicator,
    ImageBackground,TouchableOpacity,ScrollView, VirtualizedList } from "react-native";
 import { useUserContext } from "../../contexts/UserContext";
@@ -28,6 +28,7 @@ export default function Post({route}) {
   const [filter, setFilter] = useState(tipo)
   const [filtro, setFiltro] = useState({tipoPost:'PROJETO', situacaoProjeto:null, categoriaId: null, usuarioId: userState.id});
   const [categorias, setCategorias] = useState([]);
+  const scroll = useRef(null)
   const [paginacao, setPaginacao] = useState({
     sortField:'inclusao'
   })
@@ -101,7 +102,7 @@ export default function Post({route}) {
         item.quantidadeUp++
         item.quantidadeDown--;
       }
-      setUpdate(update + 1);
+      setUpdate((prevState) => prevState + 1);
   }
 
   const downCard = async (item, index) =>{
@@ -139,7 +140,7 @@ export default function Post({route}) {
       item.quantidadeUp--;
     }
     
-    setUpdate(update + 1);
+    setUpdate((prevState) => prevState + 1);
   }
 
   const showMenu = (ref) =>{
@@ -170,7 +171,7 @@ export default function Post({route}) {
     });
 
     setDados(newDados);
-    setUpdate(update+1)
+    setUpdate((prevState) => prevState+1)
 
   }
 
@@ -213,7 +214,6 @@ export default function Post({route}) {
        </View>
     </TouchableOpacity>
   );
-  
 
   const renderItem = useCallback(
     ({ item, index}) => {
@@ -287,7 +287,7 @@ export default function Post({route}) {
           ListHeaderComponentStyle={{height:70, backgroundColor:'#fff', paddingHorizontal:15}}
           ListHeaderComponent={() =>(
             <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-              <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{width: '100%', flexDirection:'row', height:30, marginBottom:10}}>
+              <ScrollView ref={scroll} showsHorizontalScrollIndicator={false} horizontal={true} style={{width: '100%', flexDirection:'row', height:30, marginBottom:10}}>
                 <TouchableOpacity style={[style.itemHeader,
                    {borderBottomColor:filtro.tipoPost == 'PROJETO' && filtro.situacaoProjeto == 'NOVO' ? global.lightBlue : 'transparent'}]} onPress={() => refresh('PROJETO', 'NOVO')}>
                   <Text style={[stylesDefault.textoPadrao, {fontSize:14}]}>Projetos</Text>
@@ -301,7 +301,7 @@ export default function Post({route}) {
                   <Text style={[stylesDefault.textoPadrao, {fontSize:14}]}>Recados</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[style.itemHeader, 
-                  {borderBottomColor:filtro.tipoPost == 'PROJETO' && filtro.situacaoProjeto == 'ANDAMENTO' ? global.lightBlue : 'transparent'}]}  onPress={() =>  refresh('PROJETO', 'ANDAMENTO')}>
+                  {borderBottomColor:filtro.tipoPost == 'PROJETO' && filtro.situacaoProjeto == 'ANDAMENTO' ? global.lightBlue : 'transparent'}]}  onPress={() =>{refresh('PROJETO', 'ANDAMENTO');}  }>
                   <Text style={[stylesDefault.textoPadrao, {fontSize:14}]}>Em andamento</Text>
                 </TouchableOpacity>
               </ScrollView>
